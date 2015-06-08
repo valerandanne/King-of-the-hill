@@ -1,0 +1,9 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <canvas id="canvas" width="500" height="300" ></canvas>
+        <script src="canvasapp.js"></script>
+        <script src="modernizr.js"></script>
+    </body>
+</html>
