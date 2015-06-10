@@ -12,10 +12,13 @@
   margin: 70px;
   position: absolute;
   top: 0; left: 0; bottom: 0; right: 0;
-    background-image: url('imagenes/woods.jpg');
+    background-image: url('imagenes/woods.png');
 }
 #main h1 {
   color: goldenrod;
+    font-family: sans-serif;
+    font-weight: bold;
+    
     text-align: center;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
@@ -33,12 +36,12 @@
   font-weight: bold;
     text-align: center;
   text-decoration: none;
-  background-color: gray;
+  background-color: grey;
 
-  border-radius: 8px;
-}S
+  border-radius: 15px;
+}
 .button:hover {
-  background-color: #B30D5D;
-  background-image: -webkit-linear-gradient(bottom, #B30D5D 0%, #FB1886 100%);
-  background-image:         linear-gradient(to bottom, #B30D5D 0%, #FB1886 100%);
+  background-color: lightgray;
+  background-image: -webkit-linear-gradient(bottom, lightgray  0%, grey 90%);
+  background-image:         linear-gradient(to bottom, lightgray 0%, grey 90%);
 }
