@@ -1,0 +1,44 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+#menu.main {
+ 
+}
+#main {
+  display: none;
+  height: 40%;
+    
+  overflow: auto;
+  margin: 70px;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+    background-image: url('imagenes/woods.jpg');
+}
+#main h1 {
+  color: goldenrod;
+    text-align: center;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+.button {
+  display: block;
+  width: 150px;
+  margin: 25 auto;
+    padding-bottom: 34px;
+  height: 30px;
+  line-height: 30px;
+  border: 3px solid #000000;
+  color: darkblue;
+    font-family: sans-serif;
+    font-size: 15pt;
+  font-weight: bold;
+    text-align: center;
+  text-decoration: none;
+  background-color: gray;
+
+  border-radius: 8px;
+}S
+.button:hover {
+  background-color: #B30D5D;
+  background-image: -webkit-linear-gradient(bottom, #B30D5D 0%, #FB1886 100%);
+  background-image:         linear-gradient(to bottom, #B30D5D 0%, #FB1886 100%);
+}
