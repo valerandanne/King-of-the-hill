@@ -1,5 +1,7 @@
-var main = document.getElementById('main') ;
+var main = document.getElementById('main');
+
 window.addEventListener('load', eventWindowLoaded, false);
+
 function eventWindowLoaded() {
     mainMenu();
 }
@@ -58,6 +60,7 @@ function canvasApp() {
         context.fillText("Level", 10, 110);
         context.fillText("1", 20, 125);
         //Castillo
+      
         context.beginPath();
         context.fillStyle = '#ADAFAD' ;
         context.strokeStyle = '#ADAFAD' ;
@@ -76,10 +79,11 @@ function canvasApp() {
         context.lineTo(145,145);
         context.arc(145, 125 , 20, (Math.PI/180)*-270, (Math.PI/180)*360);
         context.moveTo(125,125);
-        context.lineTo(80,125);
+         context.lineTo(80,125);
         context.stroke();
         context.fill();
         context.closePath();
+        
         
         //cañoñes
         context.beginPath();
@@ -118,15 +122,15 @@ function canvasApp() {
         context.stroke();
         
         //Rayo
+       
+       
         
-        context.beginPath();
-        context.fillStyle = '#9F46BC' ;
-        context.strokeStyle = '#000000' ;
-        context.moveTo(95,145);
-        context.lineTo(115,140);
-        context.stroke();
-        
-        
+        //tanques
+        var image = new Image();
+        image.src = "imagenes/tanque.png";
+        context.drawImage(image, 500, 120, 50, 50);
+        context.drawImage(image, 450, 150, 50, 50);
+        context.drawImage(image, 400, 132, 50 ,50);
     }
      drawScreen();
 }

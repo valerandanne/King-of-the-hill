@@ -22,6 +22,9 @@
     text-align: center;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
+.foto{
+    display:none ;
+}
 .button {
   display: block;
   width: 150px;
