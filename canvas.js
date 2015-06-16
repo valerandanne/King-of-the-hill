@@ -131,13 +131,25 @@ function eventWindowLoaded() {
             //Arboles
             
             // boton end
+             var image = new Image();
+            image.src = "imagenes/boton.png";
+            context.drawImage(image, 10, 250);
+            
+            //boton pausa
+            // var image = new Image();
+            //image.src = "imagenes/pause.png";
+            //context.drawImage(image, 10, 220);
             context.beginPath();
-            context.fillStyle  = '#808080' ;
-            context.strokeStyle = '#000000' ;
-            context.fillRect(10 , 250 , 80, 30);
+            context.fillStyle = '#000000' ;
+            context.moveTo(10,220);
+            context.arc(20, 230, 15, 0, (Math.PI/180)*360);
             context.fill();
-            context.stroke();
             context.closePath();
+            
+            context.strokeStyle = '#FFFFFF' ;
+            context.moveTo(25,230);
+            context.lineTo(25,240);
+            context.strokeRect();
         }
          drawScreen();
     }
@@ -152,3 +164,16 @@ function eventWindowLoaded() {
 }
 
 window.addEventListener('load', eventWindowLoaded, false);
+document.getElementById('canvas').addEventListener('click', function(e) {
+    
+   
+        var x = e.clientX ;
+        var y = e.clientY ;
+        
+        alert('X='+ x + 'y=' + y);
+    });
+    
+    
+    
+
+    
