@@ -146,10 +146,12 @@ function eventWindowLoaded() {
             context.fill();
             context.closePath();
             
+            context.beginPath();
             context.strokeStyle = '#FFFFFF' ;
-            context.moveTo(25,230);
+            context.moveTo(25,225);
             context.lineTo(25,240);
-            context.strokeRect();
+            context.stroke();
+            context.closePath();
         }
          drawScreen();
     }
@@ -160,18 +162,60 @@ function eventWindowLoaded() {
       hide(main);
       canvasApp();
 
+        
     });
-}
-
-window.addEventListener('load', eventWindowLoaded, false);
-document.getElementById('canvas').addEventListener('click', function(e) {
+    
+    document.getElementById('canvas').addEventListener('mouseover', function(e) {
+        
+        var x = e.clientX ;
+        var y = e.clientY ;
+        
+        if(x > 110 && x < 196)
+        {
+            if(y > 300 && y < 330)
+            {
+            var image = new Image();
+            image.src = "imagenes/boton2.png";
+            context.drawImage(image, 10, 250);
+            }
+        }
+    });
+    document.getElementById('canvas').addEventListener('mouseout', function(e){
+        
+        var x = e.clientX ;
+        var y = e.clientY ;
+        
+        if(x > 110 && x < 196)
+        {
+            if(y > 300 && y < 330)
+            {
+            var image = new Image();
+            image.src = "imagenes/boton.png";
+            context.drawImage(image, 10, 250);
+            }
+        }
+    });
+    document.getElementById('canvas').addEventListener('click', function(e) {
     
    
         var x = e.clientX ;
         var y = e.clientY ;
         
-        alert('X='+ x + 'y=' + y);
+        if(x > 110 && x < 196)
+        {
+            if(y > 300 && y < 330)
+            {
+                var theCanvas= document.getElementById('canvas');
+                var main = document.getElementById('main');
+                hide(theCanvas);
+                show(main);
+            }
+        }
     });
+}
+
+window.addEventListener('load', eventWindowLoaded, false);
+
     
     
     
