@@ -23,7 +23,15 @@
     text-align: center;
   text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
-
+#cuadroCanvas {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 370px;
+    margin-top: 50px;
+    margin-right: auto;
+    display: block;
+    
+}
 .foto{
     display:none ;
 }

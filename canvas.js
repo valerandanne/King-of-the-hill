@@ -34,49 +34,51 @@ function eventWindowLoaded() {
 
             // Título del juego //
             context.fillStyle = '#FBE02D' ;
-            context.font = "20px sans-serif weight: bold "  ;
+            context.font = "bold 20px sans-serif"  ;
             context.strokeStyle = '#000000';
-            context.fillText("King of the Hill", 250, 15 ) ;
+            context.fillText("King of the Hill", 220, 18 ) ;
 
             // Informacion de la partida actual //
       
-            context.fillStyle = '#000000' ;
-            context.font = "12px sans-serif weight: bold"  ;
+            
+            context.font = "bold 15px sans-serif"  ;
+            context.fillStyle = '#ADAFAD' ;
             context.fillText("Lives", 10, 20);
-           
+            context.fillText("Score", 10, 50);
+            context.fillText("Time", 10, 80);
+            context.fillText("Level", 10, 110);
             var image = new Image();
             image.src = "imagenes/live.png";
             context.drawImage(image, 22, 25,10,10);
             context.drawImage(image, 10, 25,10,10);
             context.drawImage(image, 34, 25,10,10);
             context.drawImage(image, 46, 25,10,10);
-            context.fillText("Score", 10, 50);
-            context.fillText("100", 10, 65);
-            context.fillText("Time", 10, 80);
-            context.fillText("25", 15, 95);
-            context.fillText("Level", 10, 110);
-            context.fillText("1", 20, 125);
+            
+            context.fillStyle = '#000000' ;
+            context.fillText("100", 10, 65); //score
+            context.fillText("25", 15, 95); //time
+            context.fillText("1", 20, 125);//level
             //Castillo
 
             context.beginPath();
             context.fillStyle = '#ADAFAD' ;
             context.strokeStyle = '#ADAFAD' ;
             context.lineWidth = 2 ;
-            context.arc(60, 125 , 20, 0, (Math.PI/180)*360);
+            context.arc(65, 125 , 20, 0, (Math.PI/180)*360);
 
-            context.moveTo(60, 145);
-            context.lineTo(60, 170);
-            context.moveTo(60,190);
-            context.arc(60,190,20, (Math.PI/180)*0, (Math.PI/180)*360, false);
+            context.moveTo(65, 145);
+            context.lineTo(65, 170);
+            context.moveTo(65,190);
+            context.arc(65,190,20, (Math.PI/180)*0, (Math.PI/180)*360, false);
             context.moveTo(80, 190);
-            context.lineTo(125,190);
-            context.moveTo(145,190);
-            context.arc(145,190,20, 0, (Math.PI/180)*360, false);
-            context.moveTo(145,170);
-            context.lineTo(145,145);
-            context.arc(145, 125 , 20, (Math.PI/180)*-270, (Math.PI/180)*360);
-            context.moveTo(125,125);
-             context.lineTo(80,125);
+            context.lineTo(130,190);
+            context.moveTo(150,190);
+            context.arc(150,190,20, 0, (Math.PI/180)*360, false);
+            context.moveTo(150,170);
+            context.lineTo(150,145);
+            context.arc(150, 125 , 20, (Math.PI/180)*-270, (Math.PI/180)*360);
+            context.moveTo(130,125);
+             context.lineTo(85,125);
             context.stroke();
             context.fill();
             context.closePath();
@@ -86,8 +88,8 @@ function eventWindowLoaded() {
             context.beginPath();
             context.fillStyle = '#3C3F3A' ;
             context.strokeStyle = '#3C3F3A' ;
-            context.arc(60, 125 , 10, 0, (Math.PI/180)*360);
-            context.lineTo(80,120);
+            context.arc(65, 125 , 10, 0, (Math.PI/180)*360);
+            context.lineTo(85,120);
             context.fill();
             context.stroke();
             context.save();
@@ -95,26 +97,26 @@ function eventWindowLoaded() {
 
             context.beginPath();
             context.restore();
-            context.moveTo(145,125);
-            context.arc(145, 125 , 10, 0, (Math.PI/180)*360);
-            context.lineTo(165,120);
+            context.moveTo(150,125);
+            context.arc(150, 125 , 10, 0, (Math.PI/180)*360);
+            context.lineTo(170,120);
             context.fill();
             context.stroke();
 
             context.beginPath();
             context.restore();
-            context.moveTo(60,190);
-            context.arc(60, 190 , 10, 0, (Math.PI/180)*360);
-            context.lineTo(80,195);
+            context.moveTo(65,190);
+            context.arc(65, 190 , 10, 0, (Math.PI/180)*360);
+            context.lineTo(85,195);
             context.fill();
             context.stroke();
 
 
             context.beginPath();
             context.restore();
-            context.moveTo(145,190);
-            context.arc(145, 190 , 10, 0, (Math.PI/180)*360);
-            context.lineTo(165,195);
+            context.moveTo(150,190);
+            context.arc(150, 190 , 10, 0, (Math.PI/180)*360);
+            context.lineTo(170,195);
             context.fill();
             context.stroke();
 
@@ -136,9 +138,7 @@ function eventWindowLoaded() {
             context.drawImage(image, 10, 250);
             
             //boton pausa
-            // var image = new Image();
-            //image.src = "imagenes/pause.png";
-            //context.drawImage(image, 10, 220);
+      
             context.beginPath();
             context.fillStyle = '#000000' ;
             context.moveTo(10,220);
@@ -148,8 +148,10 @@ function eventWindowLoaded() {
             
             context.beginPath();
             context.strokeStyle = '#FFFFFF' ;
-            context.moveTo(25,225);
-            context.lineTo(25,240);
+            context.moveTo(22,225);
+            context.lineTo(22,235);
+             context.moveTo(18,225);
+            context.lineTo(18,235);
             context.stroke();
             context.closePath();
         }
@@ -170,7 +172,7 @@ function eventWindowLoaded() {
         var x = e.clientX ;
         var y = e.clientY ;
         
-        if(x > 110 && x < 196)
+        if(x > 389 && x < 467)
         {
             if(y > 300 && y < 330)
             {
@@ -185,13 +187,13 @@ function eventWindowLoaded() {
         var x = e.clientX ;
         var y = e.clientY ;
         
-        if(x > 110 && x < 196)
+        if(x > 389 && x < 467)
         {
             if(y > 300 && y < 330)
             {
-            var image = new Image();
-            image.src = "imagenes/boton.png";
-            context.drawImage(image, 10, 250);
+            var image1 = new Image();
+            image1.src = "imagenes/boton.png";
+            context.drawImage(image1, 10, 250);
             }
         }
     });
@@ -201,7 +203,7 @@ function eventWindowLoaded() {
         var x = e.clientX ;
         var y = e.clientY ;
         
-        if(x > 110 && x < 196)
+        if(x > 389 && x < 467)
         {
             if(y > 300 && y < 330)
             {
@@ -216,8 +218,8 @@ function eventWindowLoaded() {
 
 window.addEventListener('load', eventWindowLoaded, false);
 
-    
-    
+
+ 
     
 
     
