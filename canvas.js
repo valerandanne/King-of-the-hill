@@ -13,7 +13,43 @@ function eventWindowLoaded() {
         show(main);
 
     }
-    
+    function clearCanvas() {
+        
+        var theCanvas = document.getElementById('canvas');
+        var context = theCanvas.getContext('2d');
+        context.fillStyle = '#FFFFFF'
+        context.fillRect(0,0,theCanvas.width, theCanvas.height);
+        
+    }
+    function drawhighscores() {
+        var theCanvas = document.getElementById('canvas');
+        var context = theCanvas.getContext('2d');
+        context.fillStyle = '#BDBDBD'
+        context.strokeStyle = '#000000' ;
+        context.strokeRect(0,0, theCanvas.width, theCanvas.height);
+        context.fillRect(0,0, theCanvas.width, theCanvas.height);
+        context.fillStyle = '#FFFFFF' ;
+        context.fillRect(40,40, (theCanvas.width - 70), (theCanvas.height - 70));
+        context.strokeRect(40,40, (theCanvas.width - 70), (theCanvas.height - 70));
+        var jugador = new Image();
+        jugador.src = "imagenes/player.png" ;
+        context.drawImage(jugador,130,50);
+        context.fillStyle = '#B4045F' ;
+        context.font = "bold 20px sans-serif" ;
+        context.fillText("High Scores", 230, 18);
+        context.font = "bold 18px sans-serif" ;
+        context.fillText("Player", 60, 70);
+        context.fillText("Score", 480, 70);
+        context.fillStyle = '#000000' ;
+        context.fillText("Mano", 65, 100);
+        context.fillText("400" , 485, 100);
+        context.fillText("Albertina", 65, 130);
+        context.fillText("315", 485, 130);
+        var boton = new Image();
+        boton.src = "imagenes/back.png" ;
+        context.drawImage(boton, 60, 270);
+    }
+        
     function canvasSupport() {
             return Modernizr.canvas;
         }
@@ -167,11 +203,17 @@ function eventWindowLoaded() {
         
     });
     
+    document.getElementsByClassName('highscores')[0].addEventListener('click', function() {
+        hide(main);
+        clearCanvas();
+        drawhighscores();
+        show(document.getElementById('canvas'));
+        });
     document.getElementById('canvas').addEventListener('mouseover', function(e) {
         
         var x = e.clientX ;
         var y = e.clientY ;
-        
+      
         if(x > 389 && x < 467)
         {
             if(y > 300 && y < 330)
@@ -202,17 +244,33 @@ function eventWindowLoaded() {
    
         var x = e.clientX ;
         var y = e.clientY ;
-        
+          
         if(x > 389 && x < 467)
         {
             if(y > 300 && y < 330)
             {
                 var theCanvas= document.getElementById('canvas');
                 var main = document.getElementById('main');
+                alert("Are you sure you want to quit?");
                 hide(theCanvas);
                 show(main);
             }
+            if(x > 382 && x < 412)
+            {
+                if( y > 265 && y < 292 )
+                {
+                    alert("Game paused, click ok to continue");
+//                var theCanvas= document.getElementById('canvas');
+//                var context = theCanvas.getContext();
+//                    var boton = new Image();
+//                    boton.src="imagenes/pausa.png";
+//                    context.drawImage(boton,200,100);
+                }
+            }
         }
+       
+            
+        
     });
 }
 
