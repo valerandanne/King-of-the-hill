@@ -46,10 +46,10 @@ function eventWindowLoaded() {
         context.fillText("Albertina", 65, 130);
         context.fillText("315", 485, 130);
         var boton = new Image();
-        boton.src = "imagenes/back.png" ;
-        context.drawImage(boton, 60, 270);
+        boton.src = "imagenes/atras.png" ;
+        context.drawImage(boton, 80, 275);
     }
-        
+   
     function canvasSupport() {
             return Modernizr.canvas;
         }
@@ -209,69 +209,40 @@ function eventWindowLoaded() {
         drawhighscores();
         show(document.getElementById('canvas'));
         });
-    document.getElementById('canvas').addEventListener('mouseover', function(e) {
-        
-        var x = e.clientX ;
-        var y = e.clientY ;
-      
-        if(x > 389 && x < 467)
-        {
-            if(y > 300 && y < 330)
-            {
-            var image = new Image();
-            image.src = "imagenes/boton2.png";
-            context.drawImage(image, 10, 250);
-            }
-        }
-    });
-    document.getElementById('canvas').addEventListener('mouseout', function(e){
-        
-        var x = e.clientX ;
-        var y = e.clientY ;
-        
-        if(x > 389 && x < 467)
-        {
-            if(y > 300 && y < 330)
-            {
-            var image1 = new Image();
-            image1.src = "imagenes/boton.png";
-            context.drawImage(image1, 10, 250);
-            }
-        }
-    });
+ 
     document.getElementById('canvas').addEventListener('click', function(e) {
     
    
-        var x = e.clientX ;
-        var y = e.clientY ;
+            var x = e.clientX ;
+            var y = e.clientY ;
           
-        if(x > 389 && x < 467)
+            var theCanvas= document.getElementById('canvas');
+            var main = document.getElementById('main');
+        
+        if(x > 389 && x < 467 && y > 300 && y < 330)
         {
-            if(y > 300 && y < 330)
-            {
-                var theCanvas= document.getElementById('canvas');
-                var main = document.getElementById('main');
                 alert("Are you sure you want to quit?");
                 hide(theCanvas);
                 show(main);
-            }
-            if(x > 382 && x < 412)
-            {
-                if( y > 265 && y < 292 )
+                
+        }
+        else {
+            if(x > 382 && x < 412 && y > 265 && y < 292 )
                 {
                     alert("Game paused, click ok to continue");
-//                var theCanvas= document.getElementById('canvas');
-//                var context = theCanvas.getContext();
-//                    var boton = new Image();
-//                    boton.src="imagenes/pausa.png";
-//                    context.drawImage(boton,200,100);
+
+                }
+            else{
+                if( x > 459 && x < 490 && y > 325 && y < 348 )
+                {
+                    hide(theCanvas);
+                    show(main);
                 }
             }
-        }
-       
-            
-        
+            }
+  
     });
+
 }
 
 window.addEventListener('load', eventWindowLoaded, false);
