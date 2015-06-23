@@ -3,7 +3,6 @@
 
 var engine = {} ;
     
-    engine.outhnd = document.getElementById('output');
     engine.canvas = document.getElementById('canvas');
     engine.handle = engine.canvas.getContext('2d');
     
@@ -13,13 +12,13 @@ var engine = {} ;
     engine.screen.width = engine.canvas.width;
     engine.screen.height = engine.canvas.height;
     
-    engine.screen.tilesX = engine.canvas.width;
-    engine.screen.tilesY = engine.canvas.height;
+    engine.screen.tilesX = engine.canvas.width / 10;
+    engine.screen.tilesY = engine.canvas.height / 10;
     
-    engine.viewport = {}
+    engine.view = {}
     
-    engine.viewport.x = 0;
-    engine.viewport.y = 0;
+    engine.view.x = 0;
+    engine.view.y = 0;
     
     engine.map = {};
     
@@ -38,10 +37,10 @@ var engine = {} ;
             for (i=0; i<engine.screen.tilesX; i++)
             {
                 //ubicacion del mapa
-                mapX= i + engine.viewport.x;
-                mapY= j + engine.viewport.y;
+                mapX= i + engine.view.x;
+                mapY= j + engine.view.y;
                 
-                tile= mapData[mapY][mapX]; //aca obtiene la imagen que le pertenece al tile
+                tile= mapData[mapY][mapX]; //we get the image that should be displayed in the tile
                 
                 engine.tile.draw(i,j,tile);
             }
@@ -61,14 +60,14 @@ var engine = {} ;
     engine.tile.store = function(id, imgSrc)
     {
         var newid = engine.tile.images.length;
-        var tile = [id , new Image(), false] // formato: numeroId, imagen, cargada?
+        var tile = [id , new Image(), false] // format: numId, image, loaded?
         
         tile[1].src = imgSrc;
         tile[1].onload = function()
         {
         tile[2]=true;
         }
-        engine.tile.images[newid] = tile; //guardo la imagen
+        engine.tile.images[newid] = tile; //save the image
     };
         
     
@@ -80,7 +79,7 @@ var engine = {} ;
         {
             if (engine.tile.images[i][0]== id)
             {
-                return engine.tile.images[i][1]; //devuelve la imagen que pertenece a ese id
+                return engine.tile.images[i][1]; //we retrieve the image that responses to that ID
             }
         }
     };
@@ -96,7 +95,7 @@ var engine = {} ;
                     
                     engine.draw(md);
                 }
-            }(mapData),100); //espero 100 ms
+            }(mapData),100); //I wait 100 ms until its loaded
         }
         else{
             
@@ -106,14 +105,19 @@ var engine = {} ;
     engine.start = function(mapData , x ,y ){
      
         
-        engine.viewport.x= x ;
-        engine.viewport.y= y ;
+        engine.view.x= x ;
+        engine.view.y= y ;
         
-        engine.tile.store('t','imagenes/tanque1.png');
+       
+        engine.tile.store('0', 'imagenes/green.png');
+        engine.tile.store('1', 'imagenes/sand.png');
+        engine.tile.store('2', 'imagenes/rock.png');
+        engine.tile.store('3', 'imagenes/tree.gif');
+        engine.tile.store('t', 'imagenes/tanque1.gif');
         engine.tile.store('v', 'imagenes/live.png');
-        engine.tile.store('p','imagenes/pause.png');
+        engine.tile.store('p', 'imagenes/pause.png');
         engine.tile.store('q', 'imagenes/boton.png');
-        engine.tile.store('g', 'imagenes/green.png');
+        
         engine.draw(mapData);
         
     
