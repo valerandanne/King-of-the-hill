@@ -1,5 +1,4 @@
 
-    
 
 var engine = {} ;
     
@@ -12,8 +11,8 @@ var engine = {} ;
     engine.screen.width = engine.canvas.width;
     engine.screen.height = engine.canvas.height;
     
-    engine.screen.tilesX = engine.canvas.width / 10;
-    engine.screen.tilesY = engine.canvas.height / 10;
+    engine.screen.tilesX = engine.canvas.width / 20;
+    engine.screen.tilesY = engine.canvas.height / 20;
     
     engine.view = {}
     
@@ -25,7 +24,7 @@ var engine = {} ;
     engine.map.draw = function (mapData){
         
         var i, j ;
-        
+        var count= 0;
         var mapX = 0 ;
         var mapY = 0 ; 
         var tile ;
@@ -43,8 +42,11 @@ var engine = {} ;
                 tile= mapData[mapY][mapX]; //we get the image that should be displayed in the tile
                 
                 engine.tile.draw(i,j,tile);
+                count += 1; 
+                
             }
         }
+        alert('count = ' +count);
     }
     
     engine.tile = {};
@@ -52,9 +54,10 @@ var engine = {} ;
     engine.tile.draw = function (x,y,tile){
         
     var img = engine.tile.retrieve(tile);
-    engine.handle.drawImage(img,x * 10, y * 10);
+    engine.handle.drawImage(img,x * 20, y * 20);
     
     }
+    // I create the images array
     engine.tile.images = [];
     
     engine.tile.store = function(id, imgSrc)
@@ -86,16 +89,16 @@ var engine = {} ;
     
     engine.draw = function(mapData)
     {
-        if(engine.tile.allLoaded()== false)
+        if(engine.tile.allLoaded()== false)// images arent loaded yet
         {
-            setTimeout(function(md)
+            setTimeout(function(map)
                        {
                 return function()
                 {
                     
-                    engine.draw(md);
+                    engine.draw(map);
                 }
-            }(mapData),100); //I wait 100 ms until its loaded
+            }(mapData),100); //I wait 100 ms until images are loaded
         }
         else{
             
@@ -107,28 +110,24 @@ var engine = {} ;
         
         engine.view.x= x ;
         engine.view.y= y ;
-        
-       
+    
         engine.tile.store('0', 'imagenes/green.png');
         engine.tile.store('1', 'imagenes/sand.png');
         engine.tile.store('2', 'imagenes/rock.png');
-        engine.tile.store('3', 'imagenes/tree.gif');
-        engine.tile.store('t', 'imagenes/tanque1.gif');
-        engine.tile.store('v', 'imagenes/live.png');
-        engine.tile.store('p', 'imagenes/pause.png');
-        engine.tile.store('q', 'imagenes/boton.png');
-        
+        engine.tile.store('3', 'imagenes/tree.png');
+        engine.tile.store('4', 'imagenes/cañon.png');
+  
         engine.draw(mapData);
         
     
     };
     engine.tile.allLoaded = function()
     {
-        var i , len = engine.tile.images.length;
+        var i , totalImg = engine.tile.images.length;
         
-        for ( i=0 ; i< len ; i++)
+        for ( i=0 ; i< totalImg ; i++)
         {
-            if(engine.tile.images[i][2] == false)
+            if(engine.tile.images[i][2] == false)//loading atribute is false
             {
                 return false;
             }
@@ -136,4 +135,3 @@ var engine = {} ;
             return true;
         }
     };
-    
