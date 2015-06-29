@@ -24,7 +24,7 @@ var engine = {} ;
     engine.map.draw = function (mapData){
         
         var i, j ;
-        var count= 0;
+        
         var mapX = 0 ;
         var mapY = 0 ; 
         var tile ;
@@ -42,11 +42,11 @@ var engine = {} ;
                 tile= mapData[mapY][mapX]; //we get the image that should be displayed in the tile
                 
                 engine.tile.draw(i,j,tile);
-                count += 1; 
+             
                 
             }
         }
-        alert('count = ' +count);
+        
     }
     
     engine.tile = {};
@@ -58,6 +58,8 @@ var engine = {} ;
     
     }
     // I create the images array
+    
+    
     engine.tile.images = [];
     
     engine.tile.store = function(id, imgSrc)
@@ -86,7 +88,18 @@ var engine = {} ;
             }
         }
     };
-    
+    engine.drawMovement = function() {
+     
+        engine.handle.save();
+        var x = 90;
+        var y = 0 ;
+        engine.tile.draw(x-1,y,5);
+        
+    }
+    engine.gameLoop = function() {
+        window.setTimeout(engine.gameLoop,100);
+        engine.drawMovement();
+    }
     engine.draw = function(mapData)
     {
         if(engine.tile.allLoaded()== false)// images arent loaded yet
@@ -103,6 +116,7 @@ var engine = {} ;
         else{
             
         engine.map.draw(mapData);
+        engine.gameLoop();
         }
     };
     engine.start = function(mapData , x ,y ){
@@ -116,7 +130,8 @@ var engine = {} ;
         engine.tile.store('2', 'imagenes/rock.png');
         engine.tile.store('3', 'imagenes/tree.png');
         engine.tile.store('4', 'imagenes/cañon.png');
-  
+        engine.tile.store('5', 'imagenes/tanquee.png');  
+        
         engine.draw(mapData);
         
     
