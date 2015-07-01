@@ -1,5 +1,5 @@
 
-
+var tanks = new Array() ; 
 var engine = {} ;
     
     engine.canvas = document.getElementById('canvas');
@@ -39,7 +39,7 @@ var engine = {} ;
                 mapX= i + engine.view.x;
                 mapY= j + engine.view.y;
                 
-                tile= mapData[mapY][mapX]; //we get the image that should be displayed in the tile
+                tile= mapData[mapY][mapX]; //we get the image number that should be displayed in the tile
                 
                 engine.tile.draw(i,j,tile);
              
@@ -57,9 +57,8 @@ var engine = {} ;
     engine.handle.drawImage(img,x * 20, y * 20);
     
     }
+   
     // I create the images array
-    
-    
     engine.tile.images = [];
     
     engine.tile.store = function(id, imgSrc)
@@ -89,18 +88,140 @@ var engine = {} ;
         }
     };
     engine.drawMovement = function() {
-     
-        engine.handle.save();
-        var x = 90;
-        var y = 0 ;
-        engine.tile.draw(x-1,y,5);
+        var x;
+        var y ;
+        var dx = -1 ;
+        var dy ;
+        var img = new Image();
+        img.src = 'imagenes/tanquee.png' ;
+        var grass= new Image();
+        grass.src= 'imagenes/green.png';
+        if(tanks.length <= 50)
+        {
+        var tank = engine.newTank();
+        tanks.push(tank); 
+        engine.handle.drawImage(img,tank.xi,tank.yi); 
+        }
+        for(var i=0 ; i< tanks.length; i++)
+        {
+        if(tanks[i].xi > tanks[i].targetx)
+        {
+            x= tanks[i].xi + dx ;
+        }
+        if(tanks[i].yi > tanks[i].targety)
+        {
+            dy= -1;
+            y =tanks[i].yi + dy ;
+        }else {
+            if(tanks[i].yi < tanks[i].targety)
+            {
+            dy= 1
+            y = tanks[i].yi + dy ;
+            }
+        }
+        engine.handle.drawImage(img,x,y); 
+//        engine.handle.drawImage(grass,tanks[i].xi, tanks[i].yi);
+        tanks[i].xi= x;
+        tanks[i].yi= y;
+        }
+        }
         
+    engine.newTank= function(){
+    
+    var posRand= Math.random();
+    var speedRand = Math.random();
+    if(speedRand < 0.5)
+    {
+        speed= 5;
     }
-    engine.gameLoop = function() {
-        window.setTimeout(engine.gameLoop,100);
+    else{
+        speed = 10;
+    }
+   if(posRand < 0.2)
+   {
+       xi= 45*20;
+       yi= 0 ;
+       targetx= 517;
+       targety=343;
+   }else{
+       if(posRand < 0.4)
+       {
+           xi=45*20 ;
+           yi=30*9;
+           targetx= 517;
+            targety=345;
+           
+       }
+       else{
+            if(posRand <0.5)
+       {
+           xi=45*20 ;
+           yi=30*12;
+           targetx= 511;
+           targety=355;
+       }else{
+           if(posRand < 0.6)
+           {
+               xi = 45*20;
+               yi=30*15;
+               targetx= 519;
+                targety=447;
+           }
+           else{
+               if(posRand < 0.7)
+               {
+                   xi = 45*20;
+                    yi=30*17; 
+                   targetx= 519;
+                    targety=447;
+               }else{
+                   if(posRand < 0.8)
+                    {
+                        xi = 45*20;
+                        yi=30*19;
+                        targetx= 519;
+                        targety=447;
+                    }else{
+                   if(posRand < 0.9)
+                   {
+                   xi=45*20;
+                   yi=30*2;
+                    targetx= 519;
+                    targety=447;
+                   }
+                    else{
+                        xi=45*20;
+                        xi=45*20;
+                        yi=30*7;
+                        targetx= 519;
+                        targety=345;
+                    }
+                    }
+               
+                    } 
+             }    
+            }
+        }
+   }
+    var tank = {
+        "xi": xi,
+        "yi": yi,
+        "speed": speed,
+        "targetx":targetx,
+        "targety":targety,
+
+        };
+        
+        return tank;
+    }
+       
+    engine.gameLoop = function(){
+        window.setInterval(engine.gameLoop, 2000);
         engine.drawMovement();
     }
-    engine.draw = function(mapData)
+    engine.gameLoop();
+
+engine.draw = function(mapData)
     {
         if(engine.tile.allLoaded()== false)// images arent loaded yet
         {
@@ -116,7 +237,7 @@ var engine = {} ;
         else{
             
         engine.map.draw(mapData);
-        engine.gameLoop();
+        
         }
     };
     engine.start = function(mapData , x ,y ){
@@ -150,3 +271,12 @@ var engine = {} ;
             return true;
         }
     };
+window.addEventListener('load',function() { 
+    engine.drawMovement();
+} , false);
+window.addEventListener('click',function(p) {
+    var x= p.clientX;
+    var y = p.clientY;
+   alert("x:"+ x + "y:"+y);
+});
+    
