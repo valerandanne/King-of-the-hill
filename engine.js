@@ -87,46 +87,7 @@ var engine = {} ;
             }
         }
     };
-    engine.drawMovement = function() {
-        var x;
-        var y ;
-        var dx = -1 ;
-        var dy ;
-        var img = new Image();
-        img.src = 'imagenes/tanquee.png' ;
-        var grass= new Image();
-        grass.src= 'imagenes/green.png';
-        if(tanks.length <= 50)
-        {
-        var tank = engine.newTank();
-        tanks.push(tank); 
-        engine.handle.drawImage(img,tank.xi,tank.yi); 
-        }
-        for(var i=0 ; i< tanks.length; i++)
-        {
-        if(tanks[i].xi > tanks[i].targetx)
-        {
-            x= tanks[i].xi + dx ;
-        }
-        if(tanks[i].yi > tanks[i].targety)
-        {
-            dy= -1;
-            y =tanks[i].yi + dy ;
-        }else {
-            if(tanks[i].yi < tanks[i].targety)
-            {
-            dy= 1
-            y = tanks[i].yi + dy ;
-            }
-        }
-        engine.handle.drawImage(img,x,y); 
-//        engine.handle.drawImage(grass,tanks[i].xi, tanks[i].yi);
-        tanks[i].xi= x;
-        tanks[i].yi= y;
-        }
-        }
-        
-    engine.newTank= function(){
+ engine.newTank= function(){
     
     var posRand= Math.random();
     var speedRand = Math.random();
@@ -141,15 +102,15 @@ var engine = {} ;
    {
        xi= 45*20;
        yi= 0 ;
-       targetx= 517;
-       targety=343;
+       targetx= 147;
+       targety=300;
    }else{
        if(posRand < 0.4)
        {
            xi=45*20 ;
            yi=30*9;
-           targetx= 517;
-            targety=345;
+           targetx= 147;
+            targety=300;
            
        }
        else{
@@ -157,44 +118,44 @@ var engine = {} ;
        {
            xi=45*20 ;
            yi=30*12;
-           targetx= 511;
-           targety=355;
+           targetx= 147;
+           targety=300;
        }else{
            if(posRand < 0.6)
            {
                xi = 45*20;
                yi=30*15;
-               targetx= 519;
-                targety=447;
+               targetx= 147;
+                targety=300;
            }
            else{
                if(posRand < 0.7)
                {
                    xi = 45*20;
                     yi=30*17; 
-                   targetx= 519;
-                    targety=447;
+                   targetx= 147;
+                    targety=440;
                }else{
                    if(posRand < 0.8)
                     {
                         xi = 45*20;
                         yi=30*19;
-                        targetx= 519;
-                        targety=447;
+                        targetx= 147;
+                        targety=400;
                     }else{
                    if(posRand < 0.9)
                    {
                    xi=45*20;
                    yi=30*2;
-                    targetx= 519;
-                    targety=447;
+                    targetx= 147;
+                    targety=400;
                    }
                     else{
                         xi=45*20;
                         xi=45*20;
                         yi=30*7;
-                        targetx= 519;
-                        targety=345;
+                        targetx= 147;
+                        targety=400;
                     }
                     }
                
@@ -214,10 +175,64 @@ var engine = {} ;
         
         return tank;
     }
-       
+    engine.addTank = function(){
+        
+         if(tanks.length < 50)
+        {
+        var img = new Image();
+        img.src = 'imagenes/tanquee.png' ;
+        var tank = engine.newTank();
+        tanks.push(tank); 
+        engine.handle.drawImage(img,tank.xi+10,tank.yi+10); 
+        }
+    }
+    engine.drawMovement = function() {
+        var x;
+        var y;
+        var dx = -1 ;
+        var dy ;
+        var img = new Image();
+        img.src = 'imagenes/tanquee.png' ;
+        var grass= new Image();
+        grass.src= 'imagenes/green.png';
+        engine.addTank();
+        engine.handle.save();
+        for(var i=0 ; i< tanks.length; i++)
+        {
+        if(tanks[i].xi > tanks[i].targetx)
+        {
+           
+            x= tanks[i].xi + dx ;
+            y=tanks[i].yi;
+        }else{
+                if(tanks[i].yi > tanks[i].targety)
+                {
+                    dy= -1;
+                    y =tanks[i].yi + dy ;
+                }else {
+                    if(tanks[i].yi < tanks[i].targety)
+                    {
+                        dy= 1;
+                        y = tanks[i].yi + dy ;
+                    }else{
+                        y=tanks[i].yi;
+                    }
+                    
+                    }
+            x=tanks[i].xi;
+          
+        }
+        engine.handle.drawImage(img,x,y);
+        engine.handle.restore();
+        tanks[i].xi= x;
+        tanks[i].yi= y;
+        }
+        }
+        
     engine.gameLoop = function(){
-        window.setInterval(engine.gameLoop, 2000);
-        engine.drawMovement();
+        window.setInterval(engine.gameLoop, 1500);
+        engine.addTank();
+        window.setInterval(engine.drawMovement(),2000/60);
     }
     engine.gameLoop();
 
