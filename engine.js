@@ -1,4 +1,5 @@
-
+var INTERVALTANKS = 5000;
+var intervalTanks;
 var tanks = new Array() ; 
 var engine = {} ;
     
@@ -228,13 +229,23 @@ var engine = {} ;
         tanks[i].yi= y;
         }
         }
-        
-    engine.gameLoop = function(){
-        window.setInterval(engine.gameLoop, 1500);
-        engine.addTank();
-        window.setInterval(engine.drawMovement(),2000/60);
+    engine.createTanks = function(){
+         intervalTanks= window.setInterval(function(){
+           if(tanks.length < 50)
+           {
+               engine.addTank();
+           }else{
+               window.clearInterval(intervalTanks);
+           }
+       }, INTERVALTANKS);
     }
-    engine.gameLoop();
+    engine.gameLoop = function(){        
+      
+         engine.drawMovement();
+        
+    }
+    
+ 
 
 engine.draw = function(mapData)
     {
@@ -269,8 +280,9 @@ engine.draw = function(mapData)
         engine.tile.store('5', 'imagenes/tanquee.png');  
         
         engine.draw(mapData);
-        
-    
+        // loop para crear tanques.
+        engine.createTanks();        
+        window.setInterval(engine.gameLoop,300);
     };
     engine.tile.allLoaded = function()
     {
