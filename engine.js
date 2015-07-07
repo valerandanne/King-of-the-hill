@@ -177,15 +177,13 @@ var engine = {} ;
         return tank;
     }
     engine.addTank = function(){
-        
-         if(tanks.length < 50)
-        {
+    
         var img = new Image();
         img.src = 'imagenes/tanquee.png' ;
         var tank = engine.newTank();
         tanks.push(tank); 
         engine.handle.drawImage(img,tank.xi+10,tank.yi+10); 
-        }
+        
     }
     engine.drawMovement = function() {
         var x;
@@ -282,7 +280,7 @@ engine.draw = function(mapData)
         engine.draw(mapData);
         // loop para crear tanques.
         engine.createTanks();        
-        window.setInterval(engine.gameLoop,300);
+        window.setInterval(engine.gameLoop,100);
     };
     engine.tile.allLoaded = function()
     {
