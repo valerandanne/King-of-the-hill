@@ -1,0 +1,9 @@
+{
+    "undef" : true ,
+    "unused": true ,
+    "curly": true, 
+    "camelcase":true,
+    "funcscope": true,
+    "indent": 4,
+    
+}
