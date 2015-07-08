@@ -7,11 +7,10 @@ module.exports = function(grunt) {
         jshint: {
             files: ['Gruntfile.js', 'src/**/*.js'],
             options: {
-                globals: {
-                    jQuery: true
+                    jshintrc: ".jshintrc",
+                    jshintignore: ".gitignore"
                 }
-            }
-        },
+            },
         watch: {
             files: ['<%=jshint.files %'],
             tasks: ['jshint']
