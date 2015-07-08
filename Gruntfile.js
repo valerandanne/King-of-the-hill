@@ -20,6 +20,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
     
-    grunt.registerTask('default',['jshint']);
-    
+    grunt.registerTask('default',['watch']);
+    grunt.registerTask('build', ['jshint']);
 };
