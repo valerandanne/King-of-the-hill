@@ -6,4 +6,17 @@
     "funcscope": true,
     "indent": 4,
     
+    "globals": {
+        "window": false,
+        "document": false,
+        "setTimeout": false,
+        "require": false,
+        "define": false,
+        "brackets": false,
+        "$": false,
+        "window": false,
+        "navigator": false,
+        "Image" : false
+    }
+    
 }

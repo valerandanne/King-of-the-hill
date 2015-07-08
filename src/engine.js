@@ -1,13 +1,11 @@
 var INTERVALTANKS = 5000;
 var intervalTanks;
-var tanks = new Array() ; 
+var tanks = [] ; 
 var engine = {} ;
-    
+  
     engine.canvas = document.getElementById('canvas');
     engine.handle = engine.canvas.getContext('2d');
-    
-   
-    
+
     engine.screen = {};
     engine.screen.width = engine.canvas.width;
     engine.screen.height = engine.canvas.height;
@@ -15,7 +13,7 @@ var engine = {} ;
     engine.screen.tilesX = engine.canvas.width / 20;
     engine.screen.tilesY = engine.canvas.height / 20;
     
-    engine.view = {}
+    engine.view = {};
     
     engine.view.x = 0;
     engine.view.y = 0;
@@ -48,7 +46,7 @@ var engine = {} ;
             }
         }
         
-    }
+    };
     
     engine.tile = {};
     
@@ -57,7 +55,7 @@ var engine = {} ;
     var img = engine.tile.retrieve(tile);
     engine.handle.drawImage(img,x * 20, y * 20);
     
-    }
+    };
    
     // I create the images array
     engine.tile.images = [];
@@ -65,13 +63,13 @@ var engine = {} ;
     engine.tile.store = function(id, imgSrc)
     {
         var newid = engine.tile.images.length;
-        var tile = [id , new Image(), false] // format: numId, image, loaded?
+        var tile = [id , new Image(), false]; // format: numId, image, loaded?
         
         tile[1].src = imgSrc;
         tile[1].onload = function()
         {
         tile[2]=true;
-        }
+        };
         engine.tile.images[newid] = tile; //save the image
     };
         
@@ -89,7 +87,11 @@ var engine = {} ;
         }
     };
  engine.newTank= function(){
-    
+    var speed;
+    var xi;
+    var yi;
+    var targetx;
+    var targety;
     var posRand= Math.random();
     var speedRand = Math.random();
     if(speedRand < 0.5)
@@ -175,7 +177,7 @@ var engine = {} ;
         };
         
         return tank;
-    }
+    };
     engine.addTank = function(){
     
         var img = new Image();
@@ -184,7 +186,7 @@ var engine = {} ;
         tanks.push(tank); 
         engine.handle.drawImage(img,tank.xi+10,tank.yi+10); 
         
-    }
+    };
     engine.drawMovement = function() {
         var x;
         var y;
@@ -226,7 +228,7 @@ var engine = {} ;
         tanks[i].xi= x;
         tanks[i].yi= y;
         }
-        }
+        };
     engine.createTanks = function(){
          intervalTanks= window.setInterval(function(){
            if(tanks.length < 50)
@@ -236,26 +238,25 @@ var engine = {} ;
                window.clearInterval(intervalTanks);
            }
        }, INTERVALTANKS);
-    }
+    };
     engine.gameLoop = function(){        
       
          engine.drawMovement();
         
-    }
+    };
     
  
 
 engine.draw = function(mapData)
     {
-        if(engine.tile.allLoaded()== false)// images arent loaded yet
+        if(engine.tile.allLoaded()=== false)// images arent loaded yet
         {
             setTimeout(function(map)
                        {
                 return function()
                 {
-                    
                     engine.draw(map);
-                }
+                };
             }(mapData),100); //I wait 100 ms until images are loaded
         }
         else{
@@ -288,7 +289,7 @@ engine.draw = function(mapData)
         
         for ( i=0 ; i< totalImg ; i++)
         {
-            if(engine.tile.images[i][2] == false)//loading atribute is false
+            if(engine.tile.images[i][2] === false)//loading atribute is false
             {
                 return false;
             }
@@ -299,9 +300,5 @@ engine.draw = function(mapData)
 window.addEventListener('load',function() { 
     engine.drawMovement();
 } , false);
-window.addEventListener('click',function(p) {
-    var x= p.clientX;
-    var y = p.clientY;
-   alert("x:"+ x + "y:"+y);
-});
+
     
