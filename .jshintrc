@@ -1,11 +1,11 @@
 {
     "undef" : true ,
     "unused": true ,
-    "curly": true, 
+    "curly": true,
     "camelcase":true,
     "funcscope": true,
     "indent": 4,
-    
+
     "globals": {
         "window": false,
         "document": false,
@@ -18,5 +18,5 @@
         "navigator": false,
         "Image" : false
     }
-    
+
 }
