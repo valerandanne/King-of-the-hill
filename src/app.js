@@ -1,3 +1,8 @@
+require.config({
+    paths: {
+
+    }
+});
 require([
     './engine',
     './maps/defaultMap.js'
