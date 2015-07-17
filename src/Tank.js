@@ -110,12 +110,6 @@ define([], function () {
         tank.yi= y;
 
     };
-    Tank.updatePosition= function(x,y){
-        tank.xi= x;
-        tank.yi= y;
-    };
-
-
     return Tank;
 
 });
