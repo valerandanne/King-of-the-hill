@@ -2,16 +2,16 @@
 
 define(['./Tank','./Map'], function (Tank,Map) {
     'use strict';
-    var INTERVALTANKS = 5000,
+    var INTERVALTANKS = 3000,
     tanks = [],
     engine = {};
     engine.addTank = function () {
-        var tank = Tank.newTank();
+        var tank = Tank.create();
         tanks.push(tank);
         };
     engine.createTanks = function () {
         var intervalTanks = window.setInterval(function () {
-            if (tanks.length < 50) {
+            if (tanks.length < 3) {
                 engine.addTank();
             } else {
                 window.clearInterval(intervalTanks);
@@ -19,10 +19,15 @@ define(['./Tank','./Map'], function (Tank,Map) {
         }, INTERVALTANKS);
     };
     engine.gameLoop = function () {
-        for (var i = 0; i < tanks.length; i++)
+        var count = tanks.length,
+            tank,
+            i;
+
+        for (i = 0; i < count; i++)
         {
-        Tank.move(tanks[i]);
-        Map.drawTank(tanks[i]);
+            tank = tanks[i];
+            tank.move();
+            Map.drawTank(tank);
         }
     };
     engine.draw = function (mapData) {

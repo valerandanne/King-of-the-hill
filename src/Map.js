@@ -59,7 +59,7 @@ define([], function () {
     map.drawTank = function(tank){
         var img = new Image();
         img.src = './imagenes/tanquee.png';
-        map.handle.drawImage(img,tank.xi,tank.yi);
+        map.handle.drawImage(img, tank.xi, tank.yi);
     };
 
 return map;
