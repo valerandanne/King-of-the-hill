@@ -23,7 +23,7 @@ define([], function () {
         /** @private */
         this._targety = targetY;
         /** @private */
-        this._speed;
+        this._speed = 0;
     }
 
     Object.defineProperty(Tank.prototype, 'xi', {
