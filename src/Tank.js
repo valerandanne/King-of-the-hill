@@ -1,6 +1,6 @@
 /*global define */
 
-define([], function () {
+define(['./Bullet'], function (Bullet) {
     'use strict';
 
     /**
@@ -23,8 +23,12 @@ define([], function () {
         /** @private */
         this._targety = targetY;
         /** @private */
-        this._speed = 0;
-    }
+        this.bullets = [];
+
+
+
+
+    };
 
     Object.defineProperty(Tank.prototype, 'xi', {
         get: function () {
@@ -45,19 +49,20 @@ define([], function () {
             y1 = this._targety,
             stepX,
             stepY,
+            gridSize = 20,
             dx = Math.abs(x1 - x0),
             dy = Math.abs(y1 - y0),
             error = (dx > dy ? dx : -dy)/2;
 
         if (x0 < x1) {
-            stepX = 1;
+            stepX = 1 * gridSize;
         } else {
-            stepX = -1;
+            stepX = -1 * gridSize;
         }
         if(y0 < y1) {
-            stepY = 1;
+            stepY = 1 * gridSize;
         } else {
-            stepY = -1;
+            stepY = -1 * gridSize;
         }
 
         var e2 = error;
@@ -69,9 +74,8 @@ define([], function () {
             error += dx;
             y0 += stepY;
         }
-        this._xi = x0;
-        this._yi = y0;
-
+        this._xi = x0 ;
+        this._yi = y0 ;
     };
     /**
      * @private
@@ -158,13 +162,27 @@ define([], function () {
     }
 
     Tank.prototype.shoot = function() {
+        if(this.bullets > 0 )
+            this.bullets.length --;
 
+    };
+
+    function _charge () {
+        var bullet = [],
+            i = 0;
+        bullet.length = 9 ;
+        while(i < bullet.length)
+        {
+            bullet.push(new Bullet(this._xi,this._yi,this._targetx, this._targety));
+            i++;
+        }
+        return bullet;
     };
 
     Tank.create = function () {
         var config = _initialPosition(),
             tank = new Tank(config.xi, config.yi, config.targetx, config.targety);
-
+        tank.bullets = _charge;
         tank._calculateSpeed();
 
         return tank;

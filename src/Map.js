@@ -59,8 +59,13 @@ define([], function () {
     map.drawTank = function(tank){
         var img = new Image();
         img.src = './imagenes/tanquee.png';
-        map.handle.drawImage(img, tank.xi, tank.yi);
+        map.handle.drawImage(img,tank._xi,tank._yi);
     };
+    map.drawGrass= function(x,y) {
+        var img = new Image();
+        img.src = './imagenes/green.png';
+        map.handle.drawImage(img,x,y);
+    }
 
 return map;
 });

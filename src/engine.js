@@ -1,8 +1,8 @@
 /*global define */
 
-define(['./Tank','./Map'], function (Tank,Map) {
+define(['./Tank','./Map','./maps/defaultMap.js'], function (Tank,Map, DefaultMap) {
     'use strict';
-    var INTERVALTANKS = 3000,
+    var INTERVALTANKS = (Math.random() * 20000),
     tanks = [],
     engine = {};
     engine.addTank = function () {
@@ -11,7 +11,7 @@ define(['./Tank','./Map'], function (Tank,Map) {
         };
     engine.createTanks = function () {
         var intervalTanks = window.setInterval(function () {
-            if (tanks.length < 3) {
+            if (tanks.length < 15) {
                 engine.addTank();
             } else {
                 window.clearInterval(intervalTanks);
@@ -22,12 +22,16 @@ define(['./Tank','./Map'], function (Tank,Map) {
         var count = tanks.length,
             tank,
             i;
-
         for (i = 0; i < count; i++)
         {
             tank = tanks[i];
+            if(tank._xi === tank._targetx && tank._yi === tank._targety){
+                window.alert('ready to shoot');
+            }else{
+            Map.drawGrass(tank._xi,tank._yi);
             tank.move();
             Map.drawTank(tank);
+            }
         }
     };
     engine.draw = function (mapData) {
@@ -52,7 +56,7 @@ define(['./Tank','./Map'], function (Tank,Map) {
         Map.tile.store('4', './imagenes/cañon.png');
         engine.draw(mapData);
         engine.createTanks();
-        window.setInterval(engine.gameLoop, 100);
+        window.setInterval(engine.gameLoop, 400);
     };
     engine.tilesLoaded = function () {
         var i, totalImg = Map.tile.images.length;
