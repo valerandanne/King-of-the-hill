@@ -57,14 +57,23 @@ define([], function () {
 
     };
     map.drawTank = function(tank){
-        var img = new Image();
+        var img = new Image(),
+            degrees = 0;
         img.src = './imagenes/tanquee.png';
-        map.handle.drawImage(img,tank._xi,tank._yi);
+      //  if(tank._direction === 'horizontal') {
+            map.handle.drawImage(img,tank._xi,tank._yi);
+//        } else { if(tank._direction === 'up') {
+//            degrees = 45;
+//            map.handle.translate(img.width / 2, img.height / 2);
+//            map.handle.rotate(degrees*Math.PI / 180);
+//        }
+//        }
     };
     map.drawGrass= function(x,y) {
         var img = new Image();
         img.src = './imagenes/green.png';
-        map.handle.drawImage(img,x,y);
+        map.handle.drawImage(img, x, y);
+
     }
 
 return map;

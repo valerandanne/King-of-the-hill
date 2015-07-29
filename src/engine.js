@@ -1,17 +1,17 @@
 /*global define */
 
-define(['./Tank','./Map','./maps/defaultMap.js'], function (Tank,Map, DefaultMap) {
+define(['./Tank', './Map', './maps/defaultMap.js'], function (Tank, Map, DefaultMap) {
     'use strict';
-    var INTERVALTANKS = (Math.random() * 20000),
-    tanks = [],
-    engine = {};
+    var INTERVALTANKS = 4000,
+        tanks = [],
+        engine = {};
     engine.addTank = function () {
         var tank = Tank.create();
         tanks.push(tank);
-        };
+    };
     engine.createTanks = function () {
         var intervalTanks = window.setInterval(function () {
-            if (tanks.length < 15) {
+            if (tanks.length < 500) {
                 engine.addTank();
             } else {
                 window.clearInterval(intervalTanks);
@@ -22,21 +22,15 @@ define(['./Tank','./Map','./maps/defaultMap.js'], function (Tank,Map, DefaultMap
         var count = tanks.length,
             tank,
             i;
-        for (i = 0; i < count; i++)
-        {
+        engine.draw(DefaultMap);
+        for (i = 0; i < count; i++) {
             tank = tanks[i];
-            if(tank._xi === tank._targetx && tank._yi === tank._targety){
-                window.alert('ready to shoot');
-            }else{
-            Map.drawGrass(tank._xi,tank._yi);
             tank.move();
             Map.drawTank(tank);
-            }
         }
     };
     engine.draw = function (mapData) {
-        if (engine.tilesLoaded() === false) // images arent loaded yet
-        {
+        if (engine.tilesLoaded() === false) {
             setTimeout(function (map) {
                 return function () {
                     engine.draw(map);
@@ -56,7 +50,7 @@ define(['./Tank','./Map','./maps/defaultMap.js'], function (Tank,Map, DefaultMap
         Map.tile.store('4', './imagenes/cañon.png');
         engine.draw(mapData);
         engine.createTanks();
-        window.setInterval(engine.gameLoop, 400);
+        window.setInterval(engine.gameLoop, 100);
     };
     engine.tilesLoaded = function () {
         var i, totalImg = Map.tile.images.length;
@@ -68,5 +62,5 @@ define(['./Tank','./Map','./maps/defaultMap.js'], function (Tank,Map, DefaultMap
             return true;
         }
     };
-  return engine;
+    return engine;
 });

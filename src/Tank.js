@@ -23,10 +23,9 @@ define(['./Bullet'], function (Bullet) {
         /** @private */
         this._targety = targetY;
         /** @private */
-        this.bullets = [];
-
-
-
+        this._bullets = [];
+        //** @private */
+        this._direction = 'left'; //others: up, down
 
     };
 
@@ -49,20 +48,23 @@ define(['./Bullet'], function (Bullet) {
             y1 = this._targety,
             stepX,
             stepY,
-            gridSize = 20,
+            gridSize = 1,
             dx = Math.abs(x1 - x0),
             dy = Math.abs(y1 - y0),
             error = (dx > dy ? dx : -dy)/2;
-
+        if (dx>0 && dy>0){
         if (x0 < x1) {
             stepX = 1 * gridSize;
         } else {
             stepX = -1 * gridSize;
+            this._direction = 'left';
         }
         if(y0 < y1) {
             stepY = 1 * gridSize;
+            this._direction = 'up';
         } else {
             stepY = -1 * gridSize;
+            this._direction = 'down';
         }
 
         var e2 = error;
@@ -73,6 +75,7 @@ define(['./Bullet'], function (Bullet) {
         if(e2 < dy ) {
             error += dx;
             y0 += stepY;
+        }
         }
         this._xi = x0 ;
         this._yi = y0 ;
@@ -182,7 +185,7 @@ define(['./Bullet'], function (Bullet) {
     Tank.create = function () {
         var config = _initialPosition(),
             tank = new Tank(config.xi, config.yi, config.targetx, config.targety);
-        tank.bullets = _charge;
+        tank._bullets = _charge;
         tank._calculateSpeed();
 
         return tank;
