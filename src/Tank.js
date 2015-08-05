@@ -26,6 +26,8 @@ define(['./Bullet'], function (Bullet) {
         this._bullets = [];
         //** @private */
         this._direction = 'left'; //others: up, down
+        //** @private */
+        this._readyToShoot = 'false';
 
     };
 
@@ -53,6 +55,7 @@ define(['./Bullet'], function (Bullet) {
             dy = Math.abs(y1 - y0),
             error = (dx > dy ? dx : -dy)/2;
         if (dx>0 && dy>0){
+            this._readyToShoot = 'false';
         if (x0 < x1) {
             stepX = 1 * gridSize;
         } else {
@@ -66,7 +69,6 @@ define(['./Bullet'], function (Bullet) {
             stepY = -1 * gridSize;
             this._direction = 'down';
         }
-
         var e2 = error;
         if(e2 > -dx) {
             error -= dy;
@@ -76,6 +78,8 @@ define(['./Bullet'], function (Bullet) {
             error += dx;
             y0 += stepY;
         }
+        }else {
+            this._readyToShoot = 'true';
         }
         this._xi = x0 ;
         this._yi = y0 ;
@@ -164,7 +168,7 @@ define(['./Bullet'], function (Bullet) {
         };
     }
 
-    Tank.prototype.shoot = function() {
+    Tank.prototype.shoot = function(targetX, targetY) {
         if(this.bullets > 0 )
             this.bullets.length --;
 
@@ -176,7 +180,7 @@ define(['./Bullet'], function (Bullet) {
         bullet.length = 9 ;
         while(i < bullet.length)
         {
-            bullet.push(new Bullet(this._xi,this._yi,this._targetx, this._targety));
+            bullet.push(new Bullet(this._xi,this._yi));
             i++;
         }
         return bullet;

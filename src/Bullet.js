@@ -7,7 +7,7 @@ define([], function () {
      * @param {number} targetY
      * @constructor
      */
-    function Bullet (posX, posY, targetX, targetY ) {
+    function Bullet (posX, posY) {
         /** @private */
         this._posX = posX;
         //** @private */

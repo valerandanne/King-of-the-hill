@@ -11,7 +11,7 @@ define(['./Tank', './Map', './maps/defaultMap.js'], function (Tank, Map, Default
     };
     engine.createTanks = function () {
         var intervalTanks = window.setInterval(function () {
-            if (tanks.length < 500) {
+            if (tanks.length < 15) {
                 engine.addTank();
             } else {
                 window.clearInterval(intervalTanks);
@@ -50,17 +50,22 @@ define(['./Tank', './Map', './maps/defaultMap.js'], function (Tank, Map, Default
         Map.tile.store('4', './imagenes/cañon.png');
         engine.draw(mapData);
         engine.createTanks();
-        window.setInterval(engine.gameLoop, 100);
+        window.setInterval(engine.gameLoop, 60);
     };
     engine.tilesLoaded = function () {
         var i, totalImg = Map.tile.images.length;
         for (i = 0; i < totalImg; i++) {
-            if (Map.tile.images[i][2] === false) //loading atribute is false
-            {
+            if (Map.tile.images[i][2] === false) {
                 return false;
             }
             return true;
         }
     };
+    window.addEventListener('click', function (e) {
+        var x , y ;
+        x = e.clientX;
+        y = e.clientY;
+        Map.getTile(DefaultMap,x,y);
+    });
     return engine;
 });

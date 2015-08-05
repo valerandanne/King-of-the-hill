@@ -30,7 +30,7 @@ define([], function () {
         var i, len = map.tile.images.length;
         for (i = 0; i < len; i++) {
             if (map.tile.images[i][0] == id) {
-                return map.tile.images[i][1]; //we retrieve the image that responses to that ID
+                return map.tile.images[i][1]; //we retrieve the image that has that ID
             }
         }
     };
@@ -50,31 +50,17 @@ define([], function () {
             for (i = 0; i < map.screen.tilesX; i++) {
                 mapX = i + map.view.x;
                 mapY = j + map.view.y;
-                tile = mapData[mapY][mapX]; //we get the image number that should be displayed in the tile
+                tile = mapData[mapY][mapX]; // image number that should be displayed in the tile
                 map.tile.draw(i, j, tile);
             }
         }
 
     };
     map.drawTank = function(tank){
-        var img = new Image(),
-            degrees = 0;
-        img.src = './imagenes/tanquee.png';
-      //  if(tank._direction === 'horizontal') {
-            map.handle.drawImage(img,tank._xi,tank._yi);
-//        } else { if(tank._direction === 'up') {
-//            degrees = 45;
-//            map.handle.translate(img.width / 2, img.height / 2);
-//            map.handle.rotate(degrees*Math.PI / 180);
-//        }
-//        }
-    };
-    map.drawGrass= function(x,y) {
         var img = new Image();
-        img.src = './imagenes/green.png';
-        map.handle.drawImage(img, x, y);
+        img.src = './imagenes/tanquee.png';
+        map.handle.drawImage(img,tank._xi,tank._yi);
+    };
 
-    }
-
-return map;
+    return map;
 });
