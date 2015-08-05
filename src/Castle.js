@@ -19,7 +19,7 @@ define(['./Weapon.js'], function(Weapon) {
 
 
 
-        }
+        };
 
     Castle.create = function () {
         castle = new Castle();
