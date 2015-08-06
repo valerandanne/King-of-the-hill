@@ -34,7 +34,7 @@ define([], function () {
             }
         }
     };
-    map.tile.draw = function (x, y, tile) {
+    map.tile.draw = function (x , y , tile) {
         var img = map.tile.retrieve(tile);
         map.handle.drawImage(img, x * 20, y * 20);
     };
@@ -56,10 +56,12 @@ define([], function () {
         }
 
     };
-    map.drawTank = function(tank){
-        var img = new Image();
+    map.drawMovement = function(tank){
+        var x = tank._pixelX,
+            y = tank._pixelY,
+            img = new Image();
         img.src = './imagenes/tanquee.png';
-        map.handle.drawImage(img,tank._xi,tank._yi);
+        map.handle.drawImage(img, x, y );
     };
 
     return map;

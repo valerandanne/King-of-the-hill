@@ -1,6 +1,6 @@
 /*global define */
 
-define(['./Tank', './Map', './maps/defaultMap.js'], function (Tank, Map, DefaultMap) {
+define(['./Tank', './Map', './maps/defaultMap.js', './Castle'], function (Tank, Map, DefaultMap, Castle) {
     'use strict';
     var INTERVALTANKS = 4000,
         tanks = [],
@@ -26,7 +26,7 @@ define(['./Tank', './Map', './maps/defaultMap.js'], function (Tank, Map, Default
         for (i = 0; i < count; i++) {
             tank = tanks[i];
             tank.move();
-            Map.drawTank(tank);
+            Map.drawMovement(tank);
         }
     };
     engine.draw = function (mapData) {
@@ -35,7 +35,7 @@ define(['./Tank', './Map', './maps/defaultMap.js'], function (Tank, Map, Default
                 return function () {
                     engine.draw(map);
                 };
-            }(mapData), 100); //I wait 100 ms until images are loaded
+            }(mapData), 60); //I wait 100 ms until images are loaded
         } else {
             Map.draw(mapData);
         }
@@ -50,7 +50,8 @@ define(['./Tank', './Map', './maps/defaultMap.js'], function (Tank, Map, Default
         Map.tile.store('4', './imagenes/cañon.png');
         engine.draw(mapData);
         engine.createTanks();
-        window.setInterval(engine.gameLoop, 60);
+        Castle.create();
+        window.setInterval(engine.gameLoop, 100);
     };
     engine.tilesLoaded = function () {
         var i, totalImg = Map.tile.images.length;
@@ -61,11 +62,6 @@ define(['./Tank', './Map', './maps/defaultMap.js'], function (Tank, Map, Default
             return true;
         }
     };
-    window.addEventListener('click', function (e) {
-        var x , y ;
-        x = e.clientX;
-        y = e.clientY;
-        Map.getTile(DefaultMap,x,y);
-    });
+
     return engine;
 });

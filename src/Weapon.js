@@ -11,18 +11,17 @@ define(['./Castle.js'], function(Castle) {
         this._bullets = [];
     }
 
-    Object.defineProperty(Weapon.prototype, 'posX' , function () {
+    Object.defineProperty(Weapon.prototype, 'posX' , {
         get: function () {
             return this._posX;
         }
     });
 
-    Object.defineProperty(Weapon.prototype, 'posY', function () {
+    Object.defineProperty(Weapon.prototype, 'posY' , {
         get: function () {
             return this._posY;
         }
     });
-    function _position () {
-        
-    }
+
+    return Weapon;
 });

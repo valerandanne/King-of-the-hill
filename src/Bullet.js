@@ -30,4 +30,6 @@ define([], function () {
             return this._posY;
     }
     });
+    
+    return Bullet;
 });

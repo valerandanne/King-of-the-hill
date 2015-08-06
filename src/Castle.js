@@ -5,25 +5,21 @@ define(['./Weapon.js'], function(Weapon) {
         this._weapons =[];
     }
 
-    Object.defineProperty(Castle.prototype, 'weapons', function () {
+    Object.defineProperty(Castle.prototype, 'weapons', {
         get: function () {
             return this._weapons;
         }
     });
     function _createWeapons () {
         var weap = [];
-        weap.length = 4;
-        for( i = 0 ; i < weap.length; i++) {
-            weap.push(new weapon());
-        }
-
-
-
-        };
-
+        weap[0] = new Weapon(3,16);
+        weap[1] = new Weapon(7,16);
+        weap[2] = new Weapon(3,20);
+        weap[3] = new Weapon(7,20);
+       }
     Castle.create = function () {
-        castle = new Castle();
-
+        var castle = new Castle();
+        castle._weapons = _createWeapons();
     }
-
+    return Castle;
 });
