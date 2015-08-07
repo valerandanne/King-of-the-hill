@@ -2,16 +2,17 @@
 
 define(['./Tank', './Map', './maps/defaultMap.js', './Castle'], function (Tank, Map, DefaultMap, Castle) {
     'use strict';
-    var INTERVALTANKS = 4000,
+    var INTERVALTANKS = 6000,
         tanks = [],
         engine = {};
+
     engine.addTank = function () {
-        var tank = Tank.create();
+        var tank = Tank.create(engine);
         tanks.push(tank);
     };
     engine.createTanks = function () {
         var intervalTanks = window.setInterval(function () {
-            if (tanks.length < 15) {
+            if (tanks.length < 500) {
                 engine.addTank();
             } else {
                 window.clearInterval(intervalTanks);
@@ -27,6 +28,9 @@ define(['./Tank', './Map', './maps/defaultMap.js', './Castle'], function (Tank, 
             tank = tanks[i];
             tank.move();
             Map.drawMovement(tank);
+//            if(tank._readyToShoot === 'true') {
+//                _determineTarget(tank);
+//            }
         }
     };
     engine.draw = function (mapData) {
@@ -51,7 +55,7 @@ define(['./Tank', './Map', './maps/defaultMap.js', './Castle'], function (Tank, 
         engine.draw(mapData);
         engine.createTanks();
         Castle.create();
-        window.setInterval(engine.gameLoop, 100);
+        window.setInterval(engine.gameLoop, 60);
     };
     engine.tilesLoaded = function () {
         var i, totalImg = Map.tile.images.length;
@@ -62,6 +66,22 @@ define(['./Tank', './Map', './maps/defaultMap.js', './Castle'], function (Tank, 
             return true;
         }
     };
+    engine.determineTarget= function(tank) {
+        var aux,
+            nearestWeapon,
+            weapon,
+            distance,
+            i;
+        for( i = 0 ; i < Castle._weapons.length ; i++ ) {
+            weapon = Castle._weapons[i];
+            distance = Math.sqrt(Math.pow((weapon._posX - tank._xi), 2) + Math.pow((weapon.posY - tank._yi), 2));
+            if(distance < aux || aux === undefined) {
+                aux = distance;
+                nearestWeapon = i;
+             }
+        }
+        return Castle.weapons[i];
 
+    };
     return engine;
 });

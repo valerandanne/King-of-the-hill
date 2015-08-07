@@ -13,11 +13,15 @@ define([], function () {
         //** @private */
         this._posY = posY;
         //** @private */
-        this._targetX = targetX;
+        this._pixelX = this._posX * 20;
         //** @private */
-        this._targetY = targetY;
+        this._pixelY = this._posY * 20;
+        //** @private */
+        this._targetX = 3 ;
+        //** @private */
+        this._targetY = 16 ;
 
-    };
+    }
 
     Object.defineProperty(Bullet.prototype, 'posX', {
         get: function () {
@@ -30,6 +34,16 @@ define([], function () {
             return this._posY;
     }
     });
-    
+    Object.defineProperty(Bullet.prototype, 'pixelX', {
+        get: function () {
+            return this._pixelX;
+    }
+    });
+
+    Object.defineProperty(Bullet.prototype, 'pixelY', {
+        get: function () {
+            return this._pixelY;
+    }
+    });
     return Bullet;
 });

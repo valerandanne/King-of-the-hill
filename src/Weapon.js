@@ -1,12 +1,18 @@
-define(['./Castle.js'], function(Castle) {
+define([], function() {
 
     function Weapon(posX,posY) {
         // **@private */
-        this._posX;
+        this._posX = posX;
         // **@private */
-        this._posY;
+        this._posY = posY;
+        // **@private */
+        this._pixelX = posX * 20;
+        // **@private */
+        this._pixelY = posY * 20;
         // **@private */
         this._life = 1;
+        // **@private */
+        this._isActive = false;
         // **@private */
         this._bullets = [];
     }

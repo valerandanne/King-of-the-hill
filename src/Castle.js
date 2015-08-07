@@ -16,10 +16,12 @@ define(['./Weapon.js'], function(Weapon) {
         weap[1] = new Weapon(7,16);
         weap[2] = new Weapon(3,20);
         weap[3] = new Weapon(7,20);
+
+        return weap;
        }
     Castle.create = function () {
         var castle = new Castle();
         castle._weapons = _createWeapons();
-    }
+    };
     return Castle;
 });
