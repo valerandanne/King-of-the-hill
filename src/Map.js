@@ -1,3 +1,4 @@
+/*global define */
 define([], function () {
     'use strict';
     var map = {};
@@ -62,6 +63,14 @@ define([], function () {
             img = new Image();
         img.src = './imagenes/tanquee.png';
         map.handle.drawImage(img, x, y );
+    };
+    map.drawBullet = function(bullet){
+        var x = bullet._pixelX,
+            y = bullet._pixelY;
+            map.handle.beginPath();
+            map.handle.arc(x, y, 4, (Math.PI/180)*0, (Math.PI/180)*360, false);
+            map.handle.fillStyle = '#FF8000';
+            map.handle.fill();
     };
 
     return map;

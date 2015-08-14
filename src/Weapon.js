@@ -1,4 +1,4 @@
-define([], function() {
+define(['./Bullet'], function(Bullet) {
 
     function Weapon(posX,posY) {
         // **@private */
@@ -15,19 +15,31 @@ define([], function() {
         this._isActive = false;
         // **@private */
         this._bullets = [];
+        this._bullets.length = 100;
     }
 
     Object.defineProperty(Weapon.prototype, 'posX' , {
         get: function () {
             return this._posX;
         }
+
     });
 
     Object.defineProperty(Weapon.prototype, 'posY' , {
         get: function () {
             return this._posY;
-        }
+        },
+
     });
+    Weapon.prototype.charge = function () {
+        var i = 0;
+        while(i < this._bullets.length)
+        {
+            this._bullets.push(new Bullet(this._posX,this._posY));
+            i++;
+        }
+
+    };
 
     return Weapon;
 });

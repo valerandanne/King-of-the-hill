@@ -2,8 +2,11 @@
 
 define(['./Tank', './Map', './maps/defaultMap.js', './Castle'], function (Tank, Map, DefaultMap, Castle) {
     'use strict';
-    var INTERVALTANKS = 6000,
+    var INTERVALTANKS = 4000,
         tanks = [],
+        clicks = 0,
+        castle = new Castle(),
+        canvas = document.getElementById('canvas'),
         engine = {};
 
     engine.addTank = function () {
@@ -12,7 +15,7 @@ define(['./Tank', './Map', './maps/defaultMap.js', './Castle'], function (Tank, 
     };
     engine.createTanks = function () {
         var intervalTanks = window.setInterval(function () {
-            if (tanks.length < 500) {
+            if (tanks.length < 15) {
                 engine.addTank();
             } else {
                 window.clearInterval(intervalTanks);
@@ -28,9 +31,6 @@ define(['./Tank', './Map', './maps/defaultMap.js', './Castle'], function (Tank, 
             tank = tanks[i];
             tank.move();
             Map.drawMovement(tank);
-//            if(tank._readyToShoot === 'true') {
-//                _determineTarget(tank);
-//            }
         }
     };
     engine.draw = function (mapData) {
@@ -54,8 +54,8 @@ define(['./Tank', './Map', './maps/defaultMap.js', './Castle'], function (Tank, 
         Map.tile.store('4', './imagenes/cañon.png');
         engine.draw(mapData);
         engine.createTanks();
-        Castle.create();
-        window.setInterval(engine.gameLoop, 60);
+        //        Castle.create(); TODO delete
+        window.setInterval(engine.gameLoop, 10);
     };
     engine.tilesLoaded = function () {
         var i, totalImg = Map.tile.images.length;
@@ -66,22 +66,41 @@ define(['./Tank', './Map', './maps/defaultMap.js', './Castle'], function (Tank, 
             return true;
         }
     };
-    engine.determineTarget= function(tank) {
+    engine.determineTarget = function (tank) {
         var aux,
             nearestWeapon,
             weapon,
             distance,
             i;
-        for( i = 0 ; i < Castle._weapons.length ; i++ ) {
+        for (i = 0; i < Castle._weapons.length; i++) {
             weapon = Castle._weapons[i];
             distance = Math.sqrt(Math.pow((weapon._posX - tank._xi), 2) + Math.pow((weapon.posY - tank._yi), 2));
-            if(distance < aux || aux === undefined) {
+            if (distance < aux || aux === undefined) {
                 aux = distance;
                 nearestWeapon = i;
-             }
+            }
         }
         return Castle.weapons[i];
-
     };
+    canvas.addEventListener('click', function (e) {
+        var limits = canvas.getBoundingClientRect(),
+            x = Math.floor((e.clientX - limits.left) / 20),
+            y = Math.floor((e.clientY - limits.top) / 20);
+        var mapa = DefaultMap;
+        if ( clicks === 0 ) {
+        if ( mapa[y][x] === '4') {
+            castle.activateWeapon(x, y);
+            clicks = 1;
+        }
+        }
+        else {
+            
+            castle.shoot(x,y); // x,y will be the coordinates of the target tile
+        }
+
+    });
+
+
+
     return engine;
 });

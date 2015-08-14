@@ -1,8 +1,13 @@
 define(['./Weapon.js'], function(Weapon) {
+    'use strict';
 
     function Castle () {
         // **@private */
         this._weapons =[];
+        this._weapons[0] = new Weapon(2,15);
+        this._weapons[1] = new Weapon(6,15);
+        this._weapons[2] = new Weapon(2,19);
+        this._weapons[3] = new Weapon(6,19);
     }
 
     Object.defineProperty(Castle.prototype, 'weapons', {
@@ -10,18 +15,29 @@ define(['./Weapon.js'], function(Weapon) {
             return this._weapons;
         }
     });
-    function _createWeapons () {
-        var weap = [];
-        weap[0] = new Weapon(3,16);
-        weap[1] = new Weapon(7,16);
-        weap[2] = new Weapon(3,20);
-        weap[3] = new Weapon(7,20);
 
-        return weap;
-       }
-    Castle.create = function () {
-        var castle = new Castle();
-        castle._weapons = _createWeapons();
+    Castle.prototype.activateWeapon = function (x,y) {
+        var i,
+            weaponId;
+            for( i = 0; i < this._weapons.length ; i++) {
+                if ((this._weapons[i]._posX === x) && (this._weapons[i]._posY === y)){
+                    this._weapons[i]._isActive = true;
+                    //this._weapons[i].charge();
+                    weaponId = i;
+                }
+            }
+        window.alert('weapon' + weaponId + ' activated');
+      };
+    Castle.prototype.shoot = function () {
+        var i;
+
+        for( i = 0; i < this._weapons.length ; i++) {
+            if((this._weapons[i]._isActive === true) && (this._weapons[i]._bullets.length > 0)) {
+                this.weapons[i]._bullets[0].shoot();
+                
+        }
+        }
+
     };
     return Castle;
 });

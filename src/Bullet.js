@@ -17,9 +17,9 @@ define([], function () {
         //** @private */
         this._pixelY = this._posY * 20;
         //** @private */
-        this._targetX = 3 ;
+        this._targetX = 2 ;
         //** @private */
-        this._targetY = 16 ;
+        this._targetY = 15 ;
 
     }
 
@@ -45,5 +45,9 @@ define([], function () {
             return this._pixelY;
     }
     });
+    Bullet.prototype.shoot = function() {
+
+
+    }
     return Bullet;
 });

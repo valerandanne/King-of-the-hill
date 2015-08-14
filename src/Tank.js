@@ -82,7 +82,7 @@ define(['./Bullet'], function (Bullet) {
             dy = Math.abs(y1 - y0),
             error = (dx > dy ? dx : -dy)/2;
         if (dx>0 && dy>0){
-            this._readyToShoot = 'false';
+
         if (x0 < x1) {
             stepX = 1 ;
         } else {
@@ -112,14 +112,14 @@ define(['./Bullet'], function (Bullet) {
         }
         this._pixelX = x0 ;
         this._pixelY = y0 ;
-//        if(this._stepsX === 20){
-//            this._xi +=  stepX;
-//            this._stepsX = 0;
-//        }
-//        if(this._stepsY === 20){
-//            this._yi += stepY ;
-//            this._stepsY = 0 ;
-//        }
+        if(this._stepsX === 20){
+            this._xi +=  stepX;
+            this._stepsX = 0;
+        }
+        if(this._stepsY === 20){
+            this._yi += stepY ;
+            this._stepsY = 0 ;
+        }
 
     };
     /**
