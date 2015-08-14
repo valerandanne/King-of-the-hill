@@ -48,6 +48,6 @@ define([], function () {
     Bullet.prototype.shoot = function() {
 
 
-    }
+    };
     return Bullet;
 });
