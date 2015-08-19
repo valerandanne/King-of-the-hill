@@ -40,7 +40,7 @@ define(['./Bullet'], function (Bullet) {
         this._direction = 'left'; //others: up, down
         //** @private */
 
-
+        //this._view = new TankView(this, this._engine.getMapRender());
     }
 
     Object.defineProperty(Tank.prototype, 'xi', {

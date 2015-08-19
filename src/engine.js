@@ -1,11 +1,12 @@
 /*global define */
 
-define(['./Tank', './Map', './maps/defaultMap.js', './Castle'], function (Tank, Map, DefaultMap, Castle) {
+define(['./Tank', './Map', './maps/defaultMap.js', './Castle','./Bullet'], function (Tank, Map, DefaultMap, Castle, Bullet) {
     'use strict';
     var INTERVALTANKS = 4000,
         tanks = [],
-        clicks = 0,
-        castle = new Castle(),
+        bullets = [],
+        //clicks = 0,
+//        castle = new Castle(),
         canvas = document.getElementById('canvas'),
         engine = {};
 
@@ -32,6 +33,16 @@ define(['./Tank', './Map', './maps/defaultMap.js', './Castle'], function (Tank, 
             tank.move();
             Map.drawMovement(tank);
         }
+        if (bullets.length > 0){
+            var b,
+                countb = bullets.length,
+                bullet;
+            for(b = 0; b < countb; b++){
+                bullet = bullets[b];
+                bullet.move();
+                Map.drawBullet(bullet);
+            }
+        }
     };
     engine.draw = function (mapData) {
         if (engine.tilesLoaded() === false) {
@@ -54,8 +65,7 @@ define(['./Tank', './Map', './maps/defaultMap.js', './Castle'], function (Tank, 
         Map.tile.store('4', './imagenes/cañon.png');
         engine.draw(mapData);
         engine.createTanks();
-        //        Castle.create(); TODO delete
-        window.setInterval(engine.gameLoop, 10);
+        window.setInterval(engine.gameLoop, 30);
     };
     engine.tilesLoaded = function () {
         var i, totalImg = Map.tile.images.length;
@@ -84,19 +94,20 @@ define(['./Tank', './Map', './maps/defaultMap.js', './Castle'], function (Tank, 
     };
     canvas.addEventListener('click', function (e) {
         var limits = canvas.getBoundingClientRect(),
-            x = Math.floor((e.clientX - limits.left) / 20),
-            y = Math.floor((e.clientY - limits.top) / 20);
-        var mapa = DefaultMap;
-        if ( clicks === 0 ) {
-        if ( mapa[y][x] === '4') {
-            castle.activateWeapon(x, y);
-            clicks = 1;
-        }
-        }
-        else {
-            
-            castle.shoot(x,y); // x,y will be the coordinates of the target tile
-        }
+            x = Math.round((e.clientX - limits.left) / 20),
+            y = Math.round((e.clientY - limits.top) / 20);
+//        var mapa = DefaultMap;
+            bullets.push(new Bullet(6,15, x, y));
+//        if ( clicks === 0 ) {
+//        if ( mapa[y][x] === '4') {
+//            castle.activateWeapon(x, y);
+//            clicks = 1;
+//        }
+//        }
+//        else {
+//            bullets.push(castle.shoot(x,y)); // x,y will be the coordinates of the target tile
+//            clicks = 0;
+//        }
 
     });
 

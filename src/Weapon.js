@@ -15,31 +15,30 @@ define(['./Bullet'], function(Bullet) {
         this._isActive = false;
         // **@private */
         this._bullets = [];
-        this._bullets.length = 100;
+        this._bullets.length = 2;
     }
 
     Object.defineProperty(Weapon.prototype, 'posX' , {
         get: function () {
             return this._posX;
         }
-
     });
 
     Object.defineProperty(Weapon.prototype, 'posY' , {
         get: function () {
             return this._posY;
-        },
-
-    });
-    Weapon.prototype.charge = function () {
-        var i = 0;
-        while(i < this._bullets.length)
-        {
-            this._bullets.push(new Bullet(this._posX,this._posY));
-            i++;
         }
-
+    });
+    Object.defineProperty(Weapon.prototype, 'bullets' , {
+        get: function () {
+            return this._bullets;
+        }
+    });
+    Weapon.prototype.charge = function (x,y) {
+        var i ;
+        for(i = 0; i < 2; i++){
+            this._bullets.push(new Bullet(this._posX,this._posY, x , y ));
+        }
     };
-
     return Weapon;
 });
