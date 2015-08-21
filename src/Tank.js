@@ -108,7 +108,8 @@ define(['./Bullet'], function (Bullet) {
             this._stepsY ++;
         }
         }else {
-            //TODO Llamar this._engine.determinetarget
+            //var targetWeapon = this._engine.determineTarget(this);
+          //  this._engine.killWeapon(targetWeapon);
         }
         this._pixelX = x0 ;
         this._pixelY = y0 ;
@@ -180,12 +181,11 @@ define(['./Bullet'], function (Bullet) {
         };
     }
 //TODO
-//    Tank.prototype.shoot = function(targetX, targetY) {
-//        if(this.bullets > 0 ) {
-//            this.bullets.length --;
-//        }
-//    };
+    /*Tank.prototype._shoot = function(weapon) {
+        if(this._bullets.length > 0 ) {
 
+        }
+    };*/
     Tank.prototype._charge =function() {
         var bullet = [],
             i = 0;
@@ -203,7 +203,7 @@ define(['./Bullet'], function (Bullet) {
             tank = new Tank(engine,config.xi, config.yi, config.xf, config.yf);
 
         tank._calculateSpeed();
-
+        //tank._charge();
         return tank;
     };
 

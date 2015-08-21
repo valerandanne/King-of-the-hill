@@ -27,16 +27,33 @@ define(['./Weapon.js'], function(Weapon) {
             }
 
       };
+    Castle.prototype.determineWeapon = function () {
+        var rnd = Math.round(Math.random() * 100),
+            weap ;
+        switch(true){
+            case rnd <= 25:
+                weap = this._weapons[0];
+                break;
+            case rnd <= 50:
+                weap = this._weapons[2];
+                break;
+            case rnd <= 75:
+                weap = this._weapons[1];
+                break;
+            case rnd <= 100:
+                weap = this._weapons[3];
+                break;
+         }
+        weap._isActive = true;
+        return weap;
+    };
     Castle.prototype.shoot = function (x,y) {
         var i,
-            pos,
             weaponId;
         for( i = 0; i < this._weapons.length ; i++) {
             if(this._weapons[i]._isActive === true) {
                 this._weapons[i].charge(x,y);
                 weaponId = i;
-                pos = this._weapons[i]._bullets[0]._posX;
-
             }
         }
         return  this._weapons[weaponId]._bullets[0];

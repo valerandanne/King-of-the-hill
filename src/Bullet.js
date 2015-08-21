@@ -7,7 +7,7 @@ define([], function () {
      * @param {number} targetY
      * @constructor
      */
-    function Bullet (posX, posY,targetX, targetY) {
+    function Bullet (engine,posX, posY,targetX, targetY) {
         /** @private */
         this._posX = posX;
         //** @private */
@@ -26,6 +26,8 @@ define([], function () {
         this._targetY = targetY ;
         //** @private */
         this._isActive = false;
+        /** @private */
+        this._engine = engine;
     }
 
     Object.defineProperty(Bullet.prototype, 'posX', {
@@ -85,8 +87,11 @@ define([], function () {
             distance = Math.round(Math.sqrt(dx * dx + dy * dy));
             this._pixelX += Math.round((dx / distance) * speed);
             this._pixelY += Math.round((dy / distance) * speed);
-            this._posX = Math.floor(this._pixelX /20);
+            this._posX = Math.floor(this._pixelX / 20);
             this._posY = Math.floor(this._pixelY / 20);
+            } else {
+                 this._engine.detectCollision(this._targetX,this._targetY);
+                 this._engine.deleteBullet(this._targetX,this._targetY);
             }
 
 /*
