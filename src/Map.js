@@ -77,12 +77,6 @@ define([], function () {
         img.src = './imagenes/explo1.png';
         map.handle.drawImage(img, x * 20, y * 20 );
     };
-    map.drawExplosion2 = function(weapon){
-        var x = weapon._pixelX,
-            y = weapon._pixelY,
-            img = new Image();
-        img.src = './imagenes/explo1.png';
-        map.handle.drawImage(img, x * 20, y * 20 );
-    };
+    
     return map;
 });

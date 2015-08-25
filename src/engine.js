@@ -124,7 +124,7 @@ define(['./Tank', './Map', './maps/defaultMap.js', './Castle','./Bullet'], funct
             }
         }
     };
-    //TODO
+    //TODO fix the fact that it executes on every gameloop
     /*engine.killWeapon = function (weap) {
         var i,
             id,
