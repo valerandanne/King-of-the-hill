@@ -5,6 +5,7 @@ define([], function () {
 
     map.canvas = document.getElementById('canvas');
     map.handle = map.canvas.getContext('2d');
+    
     map.screen = {};
     map.screen.width = map.canvas.width;
     map.screen.height = map.canvas.height;
@@ -23,11 +24,11 @@ define([], function () {
             tile = [id, new Image(), false]; // format: numId, image, loaded?
         tile[1].src = imgSrc;
         tile[1].onload = function () {
-        tile[2] = true;
+            tile[2] = true;
         };
         map.tile.images[newid] = tile; //save the image
-        };
-     map.tile.retrieve = function (id) {
+    };
+    map.tile.retrieve = function (id) {
         var i, len = map.tile.images.length;
         for (i = 0; i < len; i++) {
             if (map.tile.images[i][0] == id) {
@@ -67,10 +68,10 @@ define([], function () {
     map.drawBullet = function(bullet){
         var x = bullet._pixelX,
             y = bullet._pixelY;
-            map.handle.beginPath();
-            map.handle.arc(x, y, 4, (Math.PI/180)*0, (Math.PI/180)*360, false);
-            map.handle.fillStyle = '#FF8000';
-            map.handle.fill();
+        map.handle.beginPath();
+        map.handle.arc(x, y, 4, (Math.PI/180)*0, (Math.PI/180)*360, false);
+        map.handle.fillStyle = '#FF8000';
+        map.handle.fill();
     };
     map.drawExplosion = function(x,y){
         var img = new Image();

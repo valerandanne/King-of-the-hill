@@ -39,6 +39,7 @@ define(['./Bullet'], function (Bullet) {
         //** @private */
         this._direction = 'left'; //others: up, down
         //** @private */
+        this._life = 1;
 
         //this._view = new TankView(this, this._engine.getMapRender());
     }
@@ -83,33 +84,35 @@ define(['./Bullet'], function (Bullet) {
             error = (dx > dy ? dx : -dy)/2;
         if (dx>0 && dy>0){
 
-        if (x0 < x1) {
-            stepX = 1 ;
-        } else {
-            stepX = -1 ;
-            this._direction = 'left';
-        }
-        if(y0 < y1) {
-            stepY = 1 ;
-            this._direction = 'up';
-        } else {
-            stepY = -1 ;
-            this._direction = 'down';
-        }
-        var e2 = error;
-        if(e2 > -dx) {
-            error -= dy;
-            x0 += stepX ;
-            this._stepsX ++;
-        }
-        if(e2 < dy ) {
-            error += dx;
-            y0 += stepY ;
-            this._stepsY ++;
-        }
+            if (x0 < x1) {
+                stepX = 1 ;
+            } else {
+                stepX = -1 ;
+                this._direction = 'left';
+            }
+            if(y0 < y1) {
+                stepY = 1 ;
+                this._direction = 'up';
+            } else {
+                stepY = -1 ;
+                this._direction = 'down';
+            }
+            var e2 = error;
+            if(e2 > -dx) {
+                error -= dy;
+                x0 += stepX ;
+                this._stepsX ++;
+            }
+            if(e2 < dy ) {
+                error += dx;
+                y0 += stepY ;
+                this._stepsY ++;
+            }
         }else {
-            //var targetWeapon = this._engine.determineTarget(this);
-          //  this._engine.killWeapon(targetWeapon);
+            var targetWeapon = this._engine.determineTarget();
+            this._life = 0;
+            this._engine.killWeapon(targetWeapon);
+            
         }
         this._pixelX = x0 ;
         this._pixelY = y0 ;

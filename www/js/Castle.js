@@ -1,4 +1,4 @@
-define(['./Weapon.js'], function(Weapon) {
+define(['./Weapon'], function(Weapon) {
     'use strict';
 
     function Castle (engine) {
@@ -20,30 +20,39 @@ define(['./Weapon.js'], function(Weapon) {
 
     Castle.prototype.activateWeapon = function (x,y) {
         var i;
-            for( i = 0; i < this._weapons.length ; i++) {
-                if ((this._weapons[i]._posX === x) && (this._weapons[i]._posY === y)){
-                    this._weapons[i]._isActive = true;
-                }
+        for( i = 0; i < this._weapons.length ; i++) {
+            if ((this._weapons[i]._posX === x) && (this._weapons[i]._posY === y)){
+                this._weapons[i]._isActive = true;
             }
+        }
 
-      };
+    };
     Castle.prototype.determineWeapon = function () {
         var rnd = Math.round(Math.random() * 100),
             weap ;
         switch(true){
             case rnd <= 25:
-                weap = this._weapons[0];
+                if(this._weapons[0]._life === 1){
+                    weap = this._weapons[0];
+                }
                 break;
             case rnd <= 50:
-                weap = this._weapons[2];
+                if(this._weapons[2]._life === 1){
+                    weap = this._weapons[2];
+                }
                 break;
             case rnd <= 75:
-                weap = this._weapons[1];
+                if(this._weapons[1]._life === 1){
+                    weap = this._weapons[1];
+                }
                 break;
             case rnd <= 100:
-                weap = this._weapons[3];
+                if(this._weapons[3]._life === 1){
+                    weap = this._weapons[3];
+                }
+            
                 break;
-         }
+        }
         weap._isActive = true;
         return weap;
     };

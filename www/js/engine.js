@@ -1,12 +1,13 @@
 /*global define */
 
-define(['./Tank', './Map', './maps/defaultMap.js', './Castle','./Bullet'], function (Tank, Map, DefaultMap, Castle, Bullet) {
+define(['./Tank', './Map', './maps/tabletMap.js', './Castle','./Bullet'], function (Tank, Map, DefaultMap, Castle, Bullet) {
     'use strict';
     var INTERVALTANKS = 4000,
         //lives = 4,
         tanks = [],
         bullets = [],
         castle = new Castle(),
+        LIVES = 4,
         canvas = document.getElementById('canvas'),
         engine = {};
 
@@ -24,25 +25,36 @@ define(['./Tank', './Map', './maps/defaultMap.js', './Castle','./Bullet'], funct
         }, INTERVALTANKS);
     };
     engine.gameLoop = function () {
-        var count = tanks.length,
-            tank,
-            i;
-        engine.draw(DefaultMap);
-        for (i = 0; i < count; i++) {
-            tank = tanks[i];
-            tank.move();
-            Map.drawMovement(tank);
-        }
-        if (bullets.length > 0){
-            var b,
-                countb = bullets.length,
-                bullet;
-            for(b = 0; b < countb; b++){
-                bullet = bullets[b];
-                bullet.move();
-                Map.drawBullet(bullet);
+        var intervalGameloop = window.setInterval(function () {
+            if(LIVES > 0){
+                var count = tanks.length,
+                    tank,
+                    i;
+                engine.draw(DefaultMap);
+                for (i = 0; i < count; i++) {
+                    tank = tanks[i];
+                    if(tank){
+                        tank.move();
+                        Map.drawMovement(tank);
+                    }
+                }
+                if (bullets.length > 0){
+                    var b,
+                    countb = bullets.length,
+                    bullet;
+                    for(b = 0; b < countb; b++){
+                        bullet = bullets[b];
+                        if(bullet){
+                            bullet.move();
+                            Map.drawBullet(bullet);
+                        }
+                    }
+                }
+            } else {
+                window.clearInterval(intervalGameloop);
+                window.alert('GAME OVER');
             }
-        }
+        }, 30);
     };
     engine.draw = function (mapData) {
         if (engine.tilesLoaded() === false) {
@@ -65,7 +77,7 @@ define(['./Tank', './Map', './maps/defaultMap.js', './Castle','./Bullet'], funct
         Map.tile.store('4', './imagenes/cañon.png');
         engine.draw(mapData);
         engine.createTanks();
-        window.setInterval(engine.gameLoop, 30);
+        engine.gameLoop();
     };
     engine.tilesLoaded = function () {
         var i, totalImg = Map.tile.images.length;
@@ -76,26 +88,26 @@ define(['./Tank', './Map', './maps/defaultMap.js', './Castle','./Bullet'], funct
             return true;
         }
     };
-    engine.determineTarget = function (tank) {
-        var aux,
-            nearestWeapon,
+    engine.determineTarget = function () {
+        var nearestWeapon,
             weapon,
-            distance,
             i;
         for (i = 0; i < castle._weapons.length; i++) {
             weapon = castle._weapons[i];
-            distance = Math.sqrt(Math.pow((weapon._posX - tank._xi), 2) + Math.pow((weapon.posY -               tank._yi), 2));
-            if ((distance < aux || aux === undefined) && (weapon._life === 1)) {
-                aux = distance;
+            if (weapon._life === 1){
                 nearestWeapon = i;
+                break;
             }
         }
-        return castle.weapons[nearestWeapon];
+        if(nearestWeapon !== undefined){
+            return castle.weapons[nearestWeapon];
+        }
+        
     };
     engine.detectCollision = function(tileX,tileY){
         var i,
             tank,
-            delta = 1.5,
+            delta = 1.2,
             UpperBoundX,
             UpperBoundY,
             lowerBoundX,
@@ -110,38 +122,52 @@ define(['./Tank', './Map', './maps/defaultMap.js', './Castle','./Bullet'], funct
             if((tileX < UpperBoundX && tileX > lowerBoundX) && (tileY < UpperBoundY && tileY > lowerBoundY)){
                 tanks.splice(i,1);
                 Map.drawExplosion(tileX,tileY);
+               
             }
+            this.deleteBullet();
         }
 
     };
-    engine.deleteBullet = function (x,y) {
+    engine.deleteBullet = function () {
         var i,
             bullet;
         for(i = 0; i < bullets.length ; i++){
             bullet = bullets[i];
-            if(bullet._targetX === x && bullet._targetY === y){
+            if(bullet._isActive === false){
                 bullets.splice(i,1);
             }
         }
     };
-    //TODO fix the fact that it executes on every gameloop
-    /*engine.killWeapon = function (weap) {
+    engine.deleteTank = function () {
+        var i,
+            tank;
+        for (i = 0 ; i < tanks.length ; i++){
+            tank = tanks[i];
+            if(tank._life === 0){
+                tanks.splice(i,1);
+            }
+        }
+    };
+    
+    engine.killWeapon = function (weap) {
         var i,
             id,
             weapon;
-            for (i = 0; i < castle._weapons.length; i++) {
+        for (i = 0; i < castle._weapons.length; i++) {
             weapon = castle._weapons[i];
-                if((weap === weapon) && (weapon._life === 1)){
-                    weapon._life = 0;
-                    id = i;
-                    lives --;
-                    window.console.log('killed' + id);
-                    if(lives === 0){
-                        window.alert('YOU LOST');
-                    }
-                }
+            if((weap === weapon) ){
+                id = i;
+                weapon._life = 0;
+                LIVES --;
+                navigator.notification.beep(1);
+                window.console.log('killed' + id);
+                this.deleteTank();
+                break;
             }
-    };*/
+            
+        }
+        
+    };
 
     canvas.addEventListener('click', function (e) {
         var limits = canvas.getBoundingClientRect(),
@@ -149,8 +175,8 @@ define(['./Tank', './Map', './maps/defaultMap.js', './Castle','./Bullet'], funct
             x = Math.round((e.clientX - limits.left) / 20),
             y = Math.round((e.clientY - limits.top) / 20);
 
-            weaponUsed = castle.determineWeapon();
-            bullets.push(new Bullet(engine,weaponUsed._posX,weaponUsed._posY, x, y));
+        weaponUsed = castle.determineWeapon();
+        bullets.push(new Bullet(engine,weaponUsed._posX,weaponUsed._posY, x, y));
 
     });
 

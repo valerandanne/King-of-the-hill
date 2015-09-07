@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>King of the hill</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=no">
+        
+        <link rel="stylesheet" href="css/app.css">
+    </head>
+    <body>
+        
+        <div class="view">
+            <header>
+                <h1>Home</h1>
+            </header>
+            
+            <div class="pages">
+                <!-- home page -->
+                <div class="panel" data-title="main" id="main" selected="true">
+                    Hello World
+                </div>
+                
+                <!-- game page -->
+                <div class="panel" id='Canvas'>
+                    <canvas id="canvas" class="canvas" width="940" height="560" ></canvas>
+                </div>
+
+                <!-- score page -->
+                <div class="panel">
+                </div>
+            </div>
+     
+            
+        </div>
+
+        
+        
+    <script data-main="js/app.js" src="thirdparty/requirejs.min.js"></script>
+    <script src="cordova.js"></script>         
+    </body>
+
+</html>
+
