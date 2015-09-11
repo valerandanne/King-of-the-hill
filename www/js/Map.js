@@ -2,7 +2,7 @@
 define([], function () {
     'use strict';
     var map = {};
-
+    var count = 0;
     map.canvas = document.getElementById('canvas');
     map.handle = map.canvas.getContext('2d');
     
@@ -36,8 +36,9 @@ define([], function () {
             }
         }
     };
-    map.tile.draw = function (x , y , tile) {
-        var img = map.tile.retrieve(tile);
+    map.tile.draw = function (x , y , tileId) {
+        var img = map.tile.retrieve(tileId);
+        count ++;
         map.handle.drawImage(img, x * 20, y * 20);
     };
 

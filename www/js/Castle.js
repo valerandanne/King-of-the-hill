@@ -1,7 +1,7 @@
 define(['./Weapon'], function(Weapon) {
     'use strict';
 
-    function Castle (engine) {
+    function Castle () {
         // **@private */
         this._weapons =[];
         this._weapons.push(new Weapon(2,15));
@@ -9,7 +9,7 @@ define(['./Weapon'], function(Weapon) {
         this._weapons.push(new Weapon(2,19));
         this._weapons.push(new Weapon(6,19));
 
-        this._engine = engine;
+        
     }
 
     Object.defineProperty(Castle.prototype, 'weapons', {
