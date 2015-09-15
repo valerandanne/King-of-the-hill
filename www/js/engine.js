@@ -7,6 +7,10 @@ define(['./Tank', './Map', './maps/tabletMap.js', './Castle','./Bullet'], functi
         this._tanks = [],
         this._bullets = [],
         this._castle = new Castle();
+        
+        this.LIVES = 4;
+        this.INTERVALTANKS = 4000;
+        this.initialize();
        
     }
     Object.defineProperty(Engine.prototype, 'castle', {
@@ -18,43 +22,58 @@ define(['./Tank', './Map', './maps/tabletMap.js', './Castle','./Bullet'], functi
             }
            
         });
+    /**
+     * Initialize the Engine
+     */
+    Engine.prototype.initialize = function(){
+        var that = this;
+        document.getElementById('canvas').addEventListener('click', function (e) {
+
+            var limits = document.getElementById('canvas').getBoundingClientRect(),
+                weaponUsed,
+                x = Math.round((e.clientX - limits.left) / 20),
+                y = Math.round((e.clientY - limits.top) / 20);
+
+            weaponUsed = that._castle.determineWeapon();
+            that._bullets.push(new Bullet(that,weaponUsed._posX,weaponUsed._posY, x, y));
+
+        });    
+    };
     
-    Engine.LIVES = 4;
-    Engine.INTERVALTANKS = 4000;//frequency at which tanks are created
-    Engine.canvas = document.getElementById('canvas');
- 
     Engine.prototype.createTanks = function () {
-        
+        var that = this;
         var intervalTanks = window.setInterval(function () {
-            if ( this._tanks.length < 10) {
+            if ( that._tanks.length < 10) {
                 var tank = Tank.create(this);
-                this._tanks.push(tank);
+                that._tanks.push(tank);
             } else {
                 window.clearInterval(intervalTanks);
             }
-        }.bind(this), this.INTERVALTANKS);
+        }, that.INTERVALTANKS);
     };
     Engine.prototype.gameLoop = function () {
+        var that = this;
+        window.console.log(this);
         var intervalGameloop = window.setInterval(function () {
-            if(this.LIVES > 0){
-                var count = this._tanks.length,
+            if(that.LIVES > 0){
+                var count = that._tanks.length,
                     tank,
                     i;
                 window.console.log(count);
-                this.draw(DefaultMap);
+                that.draw(DefaultMap);
                 for (i = 0; i < count; i++) {
-                    tank = this._tanks[i];
+                    tank = that._tanks[i];
                     if(tank){
                         tank.move();
                         Map.drawMovement(tank);
                     }
                 }
-                if (this._bullets.length > 0){
+                if (that._bullets.length > 0){
                     var b,
-                    countb = this._bullets.length,
+                    countb = that._bullets.length,
                     bullet;
                     for(b = 0; b < countb; b++){
-                        bullet = this._bullets[b];
+                        bullet = that._bullets[b];
                         if(bullet){
                             bullet.move();
                             Map.drawBullet(bullet);
@@ -65,7 +84,7 @@ define(['./Tank', './Map', './maps/tabletMap.js', './Castle','./Bullet'], functi
                 window.clearInterval(intervalGameloop);
                 window.alert('GAME OVER');
             }
-        }.bind(this), 30);
+        }, 30);
     };
     Engine.prototype.draw = function (mapData) {
         if (_tilesLoaded() === false) {
@@ -180,18 +199,6 @@ define(['./Tank', './Map', './maps/tabletMap.js', './Castle','./Bullet'], functi
         }
         
     };
-    window.console.log(this);
-    document.getElementById('canvas').addEventListener('click', function (e) {
-       
-        var limits = document.getElementById('canvas').getBoundingClientRect(),
-            weaponUsed,
-            x = Math.round((e.clientX - limits.left) / 20),
-            y = Math.round((e.clientY - limits.top) / 20);
-
-        weaponUsed = this._castle.determineWeapon();
-        this._bullets.push(new Bullet(this,weaponUsed._posX,weaponUsed._posY, x, y));
-
-    });
 
     return Engine;
 });
