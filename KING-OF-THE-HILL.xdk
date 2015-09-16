@@ -5,7 +5,7 @@
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "https://appcenter.html5tools-software.intel.com/api/v2.0/redirect/projectrenderers/release-2015-ww32/jsapp/templates-blank-cordova-project/sample.zip",
       "projectGuid": "c8089ad3-f920-4d0a-b38b-cf82c778802b",
-      "lastModifiedDate": 1441291378792,
+      "lastModifiedDate": 1442336467723,
       "creationDate": 1440776958895
     },
     "XDK-app-designer": "false",
@@ -90,6 +90,57 @@
         "description": "Cordova Notification Plugin",
         "data": {},
         "dependedBy": []
+      },
+      {
+        "id": "org.apache.cordova.file",
+        "name": "File",
+        "version": "1.3.2",
+        "originType": "cordova.io",
+        "origin": "org.apache.cordova.file",
+        "gitref": "",
+        "paramvals": {},
+        "sourceLocation": "plugins/org.apache.cordova.file",
+        "selectedState": "Included",
+        "checksum": "143330fa",
+        "dependsOn": [],
+        "topLevel": false,
+        "permissions": {
+          "android:name": [
+            "android.permission.WRITE_EXTERNAL_STORAGE"
+          ]
+        },
+        "description": "Cordova File Plugin",
+        "data": {},
+        "dependedBy": [
+          "org.apache.cordova.media"
+        ]
+      },
+      {
+        "id": "org.apache.cordova.media",
+        "name": "Media",
+        "version": "0.2.15",
+        "originType": "cordova.io",
+        "origin": "org.apache.cordova.media",
+        "gitref": "",
+        "paramvals": {},
+        "sourceLocation": "plugins/org.apache.cordova.media",
+        "selectedState": "Included",
+        "checksum": "e06f1af9",
+        "dependsOn": [
+          "org.apache.cordova.file"
+        ],
+        "topLevel": true,
+        "permissions": {
+          "android:name": [
+            "android.permission.RECORD_AUDIO",
+            "android.permission.MODIFY_AUDIO_SETTINGS",
+            "android.permission.WRITE_EXTERNAL_STORAGE",
+            "android.permission.READ_PHONE_STATE"
+          ]
+        },
+        "description": "Cordova Media Plugin",
+        "data": {},
+        "dependedBy": []
       }
     ],
     "buildConfigurations": {
@@ -100,7 +151,8 @@
         "preferences_": {
           "android-minSdkVersion": "14",
           "android-targetSdkVersion": "19",
-          "android-installLocation": "auto"
+          "android-installLocation": "auto",
+          "Orientation": "landscape"
         },
         "isActive_": true,
         "appName_": "KING-OF-THE-HILL",

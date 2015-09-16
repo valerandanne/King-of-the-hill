@@ -2,36 +2,72 @@
 
 <html>
     <head>
-        <title>King of the hill</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="appframework-master/build/af.ui.base.css">
+        <link rel="stylesheet" type="text/css" href="appframework-master/build/af.ui.css">
+        <link rel="stylesheet" type="text/css" href="appframework-master/build/icons.min.css">
+        <title>King of the Hill</title>
+
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" />
         <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-        <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=no">
-        
+
+        <script type ="text/javascript" src="jquery-2.1.4.js" ></script>
+        <script type="text/javascript" charset="utf-8" src="appframework-master/build/appframework.ui.min.js" data-ver="1"></script>
+        <script type="text/javascript" src="appframework-master/src/af.ui.js"></script>
+        <script type="text/javascript" src ="appframework-master/build/appframework.ui.js"></script>
         <link rel="stylesheet" href="css/app.css">
     </head>
     <body>
-        
+        <div id="splashscreen" class="ui-loader heavy">
+            <br>
+            <br>
+            <span class="ui-icon ui-icon-loading spin"></span>
+            <h1>Loading</h1>
+         </div>
         <div class="view">
             <header>
                 <h1>Home</h1>
             </header>
-            
+
             <div class="pages">
                 <!-- home page -->
-                <div class="panel" data-title="main" id="main" selected="true">
-                    Hello World
+                <div class="panel" title="Home" id="home" data-tab="settings" style="align-items:center" selected="true">
+                    <div class='icon home big'></div>
+                    <center>
+                    <figure class="figure-align" >
+
+                            <img src="appframework-master/logo.jpg" >
+
+                            <figcaption  data-position="bottom"></figcaption>
+                    </figure>
+
+                    <a href="#game" class="button next" color="blue" data-transition="slide-left">Start Game</a>
+                    <a href="#scores" class="button next" data-transition="slide-left">Scores</a>
+                    </center>
                 </div>
-                
+
                 <!-- game page -->
-                <div class="panel" id='Canvas'>
+                <div class="panel"  id="game" title="Game">
+                    <a class="button" href="#home" id="back" >Quit</a>
                     <canvas id="canvas" class="canvas" width="940" height="560" ></canvas>
+
                 </div>
 
                 <!-- score page -->
-                <div class="panel">
+                <div class="panel" id="scores" title="Scores">
+                    <a href="#home" id="back" class="button" >Home</a>
+                    <div class="grid">
+                        <div class="col2-3">Player</div>
+
+                        <div class="col1-3">Score</div>
+                    </div>
                 </div>
             </div>
-     
-            
+            <footer>
+                <a href="#home" class="icon home">Home</a>
+            </footer>
+
+
         </div>
 
         

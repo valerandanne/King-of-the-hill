@@ -44,7 +44,7 @@ define(['./Tank', './Map', './maps/tabletMap.js', './Castle','./Bullet'], functi
         var that = this;
         var intervalTanks = window.setInterval(function () {
             if ( that._tanks.length < 10) {
-                var tank = Tank.create(this);
+                var tank = Tank.create(that);
                 that._tanks.push(tank);
             } else {
                 window.clearInterval(intervalTanks);
@@ -103,7 +103,7 @@ define(['./Tank', './Map', './maps/tabletMap.js', './Castle','./Bullet'], functi
         Map.tile.store('1', './imagenes/sand.png');
         Map.tile.store('2', './imagenes/rock.png');
         Map.tile.store('3', './imagenes/tree.png');
-        Map.tile.store('4', './imagenes/cañon.png');
+        Map.tile.store('4', './imagenes/canon.png');
         this.draw(mapData);
         this.createTanks();
         this.gameLoop();
@@ -183,13 +183,15 @@ define(['./Tank', './Map', './maps/tabletMap.js', './Castle','./Bullet'], functi
     Engine.prototype.killWeapon = function (weap) {
         var i,
             id,
-            weapon;
+            weapon,
+            media = new Media('./www/soundEffect/explosion.mp3');
         for (i = 0; i < this._castle._weapons.length; i++) {
             weapon = this._castle._weapons[i];
             if((weap === weapon) ){
                 id = i;
                 weapon._life = 0;
                 this.LIVES --;
+                media.play();
                 navigator.notification.beep(1);
                 window.console.log('killed' + id);
                 this.deleteTank();
