@@ -1,36 +1,40 @@
-require.config({
-    paths: {
 
-    }
-});
 require([
-    './engine',
-    './maps/defaultMap.js'
-], function (Engine, defaultMap) {
+    './pageNavigation'
+], function (PageNavigation) {
     'use strict';
-    var engine = new Engine();
-    engine.start(defaultMap, 0, 0);
+        
+    $.afui.autoLaunch = false;
+    $.afui.ready(function () {
+        if ($.os.android) {
+            $('#afui').addClass('light');   
+        }
+        
+        PageNavigation.init();
+    });
     
+    function onDeviceReady() {
+     
+        if (navigator.splashscreen) {
+            navigator.splashscreen.hide();
+        }
+        
+        if (window.intel && intel.xdk && intel.xdk.device) {
+            intel.xdk.device.hideSplashScreen();
+            
+        }
+        intel.xdk.device.setAutoRotate(false);
+        intel.xdk.device.setRotateOrientation("landscape");
+        intel.xdk.device.hideStatusBar();
+        $.afui.launch();
+    
+    }
+
+    document.addEventListener('app.Ready', onDeviceReady, false);
 });
+    
 
 
-/*function myEventHandler() {
-    "use strict" ;
 
-    var ua = navigator.userAgent ;
-    var str ;
-
-    if( window.Cordova && dev.isDeviceReady.c_cordova_ready__ ) {
-            str = "It worked! Cordova device ready detected at " + dev.isDeviceReady.c_cordova_ready__ + " milliseconds!" ;
-    }
-    else if( window.intel && intel.xdk && dev.isDeviceReady.d_xdk_ready______ ) {
-            str = "It worked! Intel XDK device ready detected at " + dev.isDeviceReady.d_xdk_ready______ + " milliseconds!" ;
-    }
-    else {
-        str = "Bad device ready, or none available because we're running in a browser." ;
-    }
-
-    alert(str) ;
-}*/
 
 

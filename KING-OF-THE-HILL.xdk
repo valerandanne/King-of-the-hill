@@ -5,7 +5,7 @@
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "https://appcenter.html5tools-software.intel.com/api/v2.0/redirect/projectrenderers/release-2015-ww32/jsapp/templates-blank-cordova-project/sample.zip",
       "projectGuid": "c8089ad3-f920-4d0a-b38b-cf82c778802b",
-      "lastModifiedDate": 1442336467723,
+      "lastModifiedDate": 1442499720644,
       "creationDate": 1440776958895
     },
     "XDK-app-designer": "false",
@@ -50,28 +50,6 @@
         "gitref": "",
         "name": "Splashscreen",
         "description": "Cordova Splashscreen Plugin"
-      },
-      {
-        "id": "org.apache.cordova.vibration",
-        "name": "Vibration",
-        "version": "0.3.12",
-        "originType": "cordova.io",
-        "origin": "org.apache.cordova.vibration",
-        "gitref": "",
-        "paramvals": {},
-        "sourceLocation": "plugins/org.apache.cordova.vibration",
-        "selectedState": "Included",
-        "checksum": "f0a0d2ed",
-        "dependsOn": [],
-        "topLevel": true,
-        "permissions": {
-          "android:name": [
-            "android.permission.VIBRATE"
-          ]
-        },
-        "description": "Cordova Vibration Plugin",
-        "data": {},
-        "dependedBy": []
       },
       {
         "id": "org.apache.cordova.dialogs",
@@ -152,7 +130,8 @@
           "android-minSdkVersion": "14",
           "android-targetSdkVersion": "19",
           "android-installLocation": "auto",
-          "Orientation": "landscape"
+          "Orientation": "landscape",
+          "Fullscreen": true
         },
         "isActive_": true,
         "appName_": "KING-OF-THE-HILL",
@@ -170,8 +149,8 @@
         "cordovaCLIVersion_": "4.1.2",
         "crosswalkVersion_": "11",
         "appVersion_": "0.0.1",
-        "appDescription_": "Universal init code for Intel XDK and Cordova device ready detection.",
-        "appAuthor_": "Intel XDK",
+        "appDescription_": "",
+        "appAuthor_": "Valentina",
         "appVersionCode_": "1"
       },
       "Android": {
@@ -282,7 +261,7 @@
         "runtime_": "W3C on Chrome OS",
         "name_": "Chrome",
         "preferences_": {},
-        "isActive_": false,
+        "isActive_": true,
         "appName_": "KING-OF-THE-HILL",
         "appID_": "not.yet.specified",
         "appAccess_": [

@@ -1,9 +1,10 @@
-/*global define */
+/*global define*/
 
-define(['./Tank', './Map', './maps/tabletMap.js', './Castle','./Bullet'], function (Tank, Map, DefaultMap, Castle, Bullet) {
+define(['./Tank', './Map', './maps/tabletMap.js', './Castle','./Bullet', './audio'], function (Tank, Map, DefaultMap, Castle, Bullet, Audio) {
     'use strict';
     
     function Engine(){
+        
         this._tanks = [],
         this._bullets = [],
         this._castle = new Castle();
@@ -40,6 +41,8 @@ define(['./Tank', './Map', './maps/tabletMap.js', './Castle','./Bullet'], functi
         });    
     };
     
+    /** Loop for adding tanks */
+    
     Engine.prototype.createTanks = function () {
         var that = this;
         var intervalTanks = window.setInterval(function () {
@@ -51,15 +54,15 @@ define(['./Tank', './Map', './maps/tabletMap.js', './Castle','./Bullet'], functi
             }
         }, that.INTERVALTANKS);
     };
+    
+    /** Main gameloop */
     Engine.prototype.gameLoop = function () {
         var that = this;
-        window.console.log(this);
         var intervalGameloop = window.setInterval(function () {
             if(that.LIVES > 0){
                 var count = that._tanks.length,
                     tank,
                     i;
-                window.console.log(count);
                 that.draw(DefaultMap);
                 for (i = 0; i < count; i++) {
                     tank = that._tanks[i];
@@ -86,6 +89,7 @@ define(['./Tank', './Map', './maps/tabletMap.js', './Castle','./Bullet'], functi
             }
         }, 30);
     };
+    
     Engine.prototype.draw = function (mapData) {
         if (_tilesLoaded() === false) {
            
@@ -183,15 +187,15 @@ define(['./Tank', './Map', './maps/tabletMap.js', './Castle','./Bullet'], functi
     Engine.prototype.killWeapon = function (weap) {
         var i,
             id,
-            weapon,
-            media = new Media('./www/soundEffect/explosion.mp3');
+            weapon;
+        
         for (i = 0; i < this._castle._weapons.length; i++) {
             weapon = this._castle._weapons[i];
             if((weap === weapon) ){
                 id = i;
                 weapon._life = 0;
                 this.LIVES --;
-                media.play();
+                Audio.playAudio('www/soundEffect/explosion.mp3');
                 navigator.notification.beep(1);
                 window.console.log('killed' + id);
                 this.deleteTank();

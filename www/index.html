@@ -3,35 +3,41 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" />
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <title>King of the Hill</title>
+        
         <link rel="stylesheet" type="text/css" href="appframework-master/build/af.ui.base.css">
         <link rel="stylesheet" type="text/css" href="appframework-master/build/af.ui.css">
         <link rel="stylesheet" type="text/css" href="appframework-master/build/icons.min.css">
-        <title>King of the Hill</title>
-
-        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" />
-        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <link rel="stylesheet" href="css/app.css">
 
         <script type ="text/javascript" src="jquery-2.1.4.js" ></script>
-        <script type="text/javascript" charset="utf-8" src="appframework-master/build/appframework.ui.min.js" data-ver="1"></script>
+        <script type="text/javascript" src="appframework-master/build/appframework.ui.min.js" data-ver="1"></script>
         <script type="text/javascript" src="appframework-master/src/af.ui.js"></script>
         <script type="text/javascript" src ="appframework-master/build/appframework.ui.js"></script>
-        <link rel="stylesheet" href="css/app.css">
+        
+        <script src="intelxdk.js"></script>
+        <script src="cordova.js"></script> 
+        
+        <script src="js/init-dev.js"></script>
+        <script data-main="js/app.js" src="thirdparty/requirejs.min.js"></script>
     </head>
-    <body>
+    <body id="afui">
         <div id="splashscreen" class="ui-loader heavy">
             <br>
             <br>
             <span class="ui-icon ui-icon-loading spin"></span>
             <h1>Loading</h1>
          </div>
-        <div class="view">
+        <div  class="view">
             <header>
                 <h1>Home</h1>
             </header>
 
             <div class="pages">
                 <!-- home page -->
-                <div class="panel" title="Home" id="home" data-tab="settings" style="align-items:center" selected="true">
+                <div class="panel" title="Home" id="home"   data-tab="settings" style="align-items:center" selected="true">
                     <div class='icon home big'></div>
                     <center>
                     <figure class="figure-align" >
@@ -41,18 +47,10 @@
                             <figcaption  data-position="bottom"></figcaption>
                     </figure>
 
-                    <a href="#game" class="button next" color="blue" data-transition="slide-left">Start Game</a>
-                    <a href="#scores" class="button next" data-transition="slide-left">Scores</a>
+                    <a id="btn-game" class="button next" color="blue" data-transition="slide">Start Game</a>
+                    <a id="btn-scores" class="button next" data-transition="slide">Scores</a>
                     </center>
                 </div>
-
-                <!-- game page -->
-                <div class="panel"  id="game" title="Game">
-                    <a class="button" href="#home" id="back" >Quit</a>
-                    <canvas id="canvas" class="canvas" width="940" height="560" ></canvas>
-
-                </div>
-
                 <!-- score page -->
                 <div class="panel" id="scores" title="Scores">
                     <a href="#home" id="back" class="button" >Home</a>
@@ -63,17 +61,16 @@
                     </div>
                 </div>
             </div>
-            <footer>
-                <a href="#home" class="icon home">Home</a>
-            </footer>
-
-
         </div>
-
+         <!-- game page -->
+        <div class="view" >
+                <div class="panel"  id="game" title="Game" style="overflow:hidden">
+                    <canvas id="canvas" class="canvas" width="940" height="560" ></canvas>
+                </div>
+        </div>
         
         
-    <script data-main="js/app.js" src="thirdparty/requirejs.min.js"></script>
-    <script src="cordova.js"></script>         
+      
     </body>
 
 </html>
