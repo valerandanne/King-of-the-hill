@@ -5,7 +5,7 @@
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "https://appcenter.html5tools-software.intel.com/api/v2.0/redirect/projectrenderers/release-2015-ww32/jsapp/templates-blank-cordova-project/sample.zip",
       "projectGuid": "c8089ad3-f920-4d0a-b38b-cf82c778802b",
-      "lastModifiedDate": 1442499720644,
+      "lastModifiedDate": 1443114547115,
       "creationDate": 1440776958895
     },
     "XDK-app-designer": "false",
@@ -117,6 +117,25 @@
           ]
         },
         "description": "Cordova Media Plugin",
+        "data": {},
+        "dependedBy": []
+      },
+      {
+        "id": "intel.xdk.player",
+        "name": "Intel XDK Player",
+        "version": "1.1.0",
+        "originType": "repo",
+        "origin": "https://github.com/01org/cordova-plugin-intel-xdk-player.git",
+        "gitref": "r1.1.0",
+        "subdir": ".",
+        "paramvals": {},
+        "sourceLocation": "plugins/intel.xdk.player",
+        "selectedState": "Included",
+        "checksum": "3ba728c",
+        "dependsOn": [],
+        "topLevel": true,
+        "permissions": {},
+        "description": "Intel XDK Player Plugin",
         "data": {},
         "dependedBy": []
       }

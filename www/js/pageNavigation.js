@@ -1,28 +1,55 @@
-define([
-    './engine',
-    './maps/defaultMap.js'
-], function (Engine, defaultMap) {
+define(['./engine', './maps/defaultMap.js', './scoresDb'], 
+    function (Engine, defaultMap, ScoresDb) {
     'use strict';
-
+    var engine = null;
+    
     function init() {
         $(document).on("click", "#btn-game", function () {
-            $.afui.loadContent("#game");
             
-            var engine = new Engine();
-            engine.start(defaultMap, 0, 0);
+            $.afui.loadContent("#game");
+            if(engine === null) {
+                engine = new Engine();
+            }
+            else {
+                engine.clear();
+            }
+            engine.start(defaultMap, 0, 0);  
+           
         });
-        
-        $("#canvas").bind("swipeLeft", function () {
-            $.afui.loadContent("#home");   
+        $(document).on("swipe", "#scores", function() {
+               
+            $.afui.loadContent("#home");
         });
+        $(document).on("click", "#btn-scores", onLoadScores);
+     
+        document.addEventListener("backbutton", onBackKeyDown,false);
         
-        $(document).on("click", "#btn-scores", function () {
-            $.afui.loadContent("#scores");
+    }
+    function onLoadScores() {
+        ScoresDb.read();
+        $.afui.loadContent("#scores");
+    
+    }
+    function onBackKeyDown() {
+        
+        $.afui.popup( {
+            title : "Confirmation",
+            message:"¿Are you sure you want to quit the game?",
+            cancelText: "Cancel",
+            cancelCallback: function(){window.console.log("cancelled");},
+            doneText: "Yes",
+            doneCallback: function() { 
+                engine.externalStopGame();
+                $.afui.loadContent("#home");
+            },
+            cancelOnly: false
+            
+            
         });
     }
-
     return {
         init: init
+       
     };
 });
     

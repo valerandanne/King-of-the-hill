@@ -79,6 +79,15 @@ define([], function () {
         img.src = './imagenes/explo1.png';
         map.handle.drawImage(img, x * 20, y * 20 );
     };
-    
+    map.drawStatus = function(score,lives){
+        map.handle.font = 'bold 20pt calibri';
+        map.handle.fillStyle = '#F9DDD6';
+        map.handle.fillText('Lives:', 10, 30);
+        map.handle.fillText(lives, 80, 30);
+        map.handle.fillText('Score:', 10, 60);
+        map.handle.fillText(score, 85, 60);
+       
+    };
+ 
     return map;
 });

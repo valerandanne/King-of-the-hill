@@ -1,6 +1,6 @@
 /*global define*/
 
-define(['./Tank', './Map', './maps/tabletMap.js', './Castle','./Bullet', './audio'], function (Tank, Map, DefaultMap, Castle, Bullet, Audio) {
+define(['./Tank', './Map', './maps/tabletMap.js', './Castle','./Bullet', './audio', './scoresDb'], function (Tank, Map, DefaultMap, Castle, Bullet, Audio, ScoresDb) {
     'use strict';
     
     function Engine(){
@@ -8,11 +8,12 @@ define(['./Tank', './Map', './maps/tabletMap.js', './Castle','./Bullet', './audi
         this._tanks = [],
         this._bullets = [],
         this._castle = new Castle();
-        
+        this.intervalLoop = null;
+        this.score = 0;
         this.LIVES = 4;
         this.INTERVALTANKS = 4000;
         this.initialize();
-       
+        this.explosionSound = document.getElementById("explosion");
     }
     Object.defineProperty(Engine.prototype, 'castle', {
             set: function (value) {
@@ -26,6 +27,7 @@ define(['./Tank', './Map', './maps/tabletMap.js', './Castle','./Bullet', './audi
     /**
      * Initialize the Engine
      */
+    
     Engine.prototype.initialize = function(){
         var that = this;
         document.getElementById('canvas').addEventListener('click', function (e) {
@@ -37,12 +39,23 @@ define(['./Tank', './Map', './maps/tabletMap.js', './Castle','./Bullet', './audi
 
             weaponUsed = that._castle.determineWeapon();
             that._bullets.push(new Bullet(that,weaponUsed._posX,weaponUsed._posY, x, y));
-
         });    
     };
     
     /** Loop for adding tanks */
-    
+    Engine.prototype.clear = function() {
+        
+        this._tanks.length = 0,
+        this._bullets.length= 0,
+        this._castle = null;
+        this._castle = new Castle();
+        this.intervalLoop = null;
+        this.score = 0;
+        this.LIVES = 4;
+        this.INTERVALTANKS = 4000;
+        this.initialize();
+        
+    };
     Engine.prototype.createTanks = function () {
         var that = this;
         var intervalTanks = window.setInterval(function () {
@@ -58,7 +71,7 @@ define(['./Tank', './Map', './maps/tabletMap.js', './Castle','./Bullet', './audi
     /** Main gameloop */
     Engine.prototype.gameLoop = function () {
         var that = this;
-        var intervalGameloop = window.setInterval(function () {
+        this.intervalLoop = window.setInterval(function () {
             if(that.LIVES > 0){
                 var count = that._tanks.length,
                     tank,
@@ -83,9 +96,10 @@ define(['./Tank', './Map', './maps/tabletMap.js', './Castle','./Bullet', './audi
                         }
                     }
                 }
+                Map.drawStatus(that.score, that.LIVES);
             } else {
-                window.clearInterval(intervalGameloop);
-                window.alert('GAME OVER');
+                
+                that.endGame();
             }
         }, 30);
     };
@@ -100,6 +114,25 @@ define(['./Tank', './Map', './maps/tabletMap.js', './Castle','./Bullet', './audi
             Map.draw(mapData);
         }
     };
+    Engine.prototype.externalStopGame = function () {
+        if(this.intervalLoop !== null){
+            window.clearInterval(this.intervalLoop);
+        }
+    };
+    Engine.prototype.endGame = function () {
+        if(this.intervalLoop!== null){
+            window.clearInterval(this.intervalLoop);
+            this.saveScores();
+            
+        }
+    };
+    Engine.prototype.saveScores = function () {
+        var player = window.prompt("Entrer player name");
+        ScoresDb.save(player, this.score);
+        ScoresDb.read();
+         $.afui.loadContent("#home");
+     };
+    
     Engine.prototype.start = function (mapData, x, y) {
         Map.view.x = x;
         Map.view.y = y;
@@ -157,6 +190,7 @@ define(['./Tank', './Map', './maps/tabletMap.js', './Castle','./Bullet', './audi
             if((tileX < UpperBoundX && tileX > lowerBoundX) && (tileY < UpperBoundY && tileY > lowerBoundY)){
                 this._tanks.splice(i,1);
                 Map.drawExplosion(tileX,tileY);
+                this.updateScore();
                
             }
             this.deleteBullet();
@@ -195,14 +229,21 @@ define(['./Tank', './Map', './maps/tabletMap.js', './Castle','./Bullet', './audi
                 id = i;
                 weapon._life = 0;
                 this.LIVES --;
-                Audio.playAudio('www/soundEffect/explosion.mp3');
-                navigator.notification.beep(1);
+                this.explosionSound.play();
+            
+                //navigator.notification.beep(1);
                 window.console.log('killed' + id);
                 this.deleteTank();
                 break;
             }
             
         }
+        
+    };
+    Engine.prototype.updateScore = function(){
+        
+        var newScore = this.score + 10;
+        this.score = newScore;
         
     };
 

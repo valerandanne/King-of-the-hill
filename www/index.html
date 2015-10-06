@@ -16,7 +16,7 @@
         <script type="text/javascript" src="appframework-master/build/appframework.ui.min.js" data-ver="1"></script>
         <script type="text/javascript" src="appframework-master/src/af.ui.js"></script>
         <script type="text/javascript" src ="appframework-master/build/appframework.ui.js"></script>
-        
+        <audio id="explosion" type="audio/mpeg" src="soundEffect/explosion.mp3"></audio>
         <script src="intelxdk.js"></script>
         <script src="cordova.js"></script> 
         
@@ -53,12 +53,12 @@
                 </div>
                 <!-- score page -->
                 <div class="panel" id="scores" title="Scores">
-                    <a href="#home" id="back" class="button" >Home</a>
-                    <div class="grid">
+                    <!--<div class="grid">
                         <div class="col2-3">Player</div>
 
                         <div class="col1-3">Score</div>
-                    </div>
+                    </div>-->
+                    <ul id=Hscores ></ul>
                 </div>
             </div>
         </div>

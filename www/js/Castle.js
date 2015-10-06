@@ -27,6 +27,10 @@ define(['./Weapon'], function(Weapon) {
         }
 
     };
+    Castle.prototype.restart = function() {
+        
+        
+    };
     Castle.prototype.determineWeapon = function () {
         var rnd = Math.round(Math.random() * 100),
             weap ;
