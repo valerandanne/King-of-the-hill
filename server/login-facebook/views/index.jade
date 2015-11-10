@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  h1= title
+
+  if(user)
+    ul
+      li
+        img(src="#{user.photo}")
+      li Welcome #{user.name}
+      li
+        a(href='/logout') Log out
+  else
+    ul
+      li
+        a(href='/auth/facebook') Login
