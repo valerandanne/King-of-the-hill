@@ -11,7 +11,7 @@ define(['./Tank', './Map', './maps/tabletMap.js', './Castle','./Bullet', './audi
         this.intervalLoop = null;
         this.score = 0;
         this.LIVES = 4;
-        this.INTERVALTANKS = 4000;
+        this.INTERVALTANKS = 3000;
         this.initialize();
         this.explosionSound = document.getElementById("explosion");
     }
@@ -59,7 +59,7 @@ define(['./Tank', './Map', './maps/tabletMap.js', './Castle','./Bullet', './audi
     Engine.prototype.createTanks = function () {
         var that = this;
         var intervalTanks = window.setInterval(function () {
-            if ( that._tanks.length < 10) {
+            if ( that._tanks.length < 20) {
                 var tank = Tank.create(that);
                 that._tanks.push(tank);
             } else {
@@ -130,8 +130,8 @@ define(['./Tank', './Map', './maps/tabletMap.js', './Castle','./Bullet', './audi
         var player = window.prompt("Entrer player name");
         ScoresDb.save(player, this.score);
         ScoresDb.read();
-         $.afui.loadContent("#home");
-     };
+        $.afui.loadContent('#home');
+    };
     
     Engine.prototype.start = function (mapData, x, y) {
         Map.view.x = x;
@@ -230,8 +230,6 @@ define(['./Tank', './Map', './maps/tabletMap.js', './Castle','./Bullet', './audi
                 weapon._life = 0;
                 this.LIVES --;
                 this.explosionSound.play();
-            
-                //navigator.notification.beep(1);
                 window.console.log('killed' + id);
                 this.deleteTank();
                 break;

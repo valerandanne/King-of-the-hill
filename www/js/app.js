@@ -25,7 +25,6 @@ require([
         }
         intel.xdk.device.setAutoRotate(false);
         intel.xdk.device.setRotateOrientation("landscape");
-        //intel.xdk.device.hideStatusBar();
         $.afui.launch();
         
     

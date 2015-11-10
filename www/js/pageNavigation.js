@@ -1,5 +1,5 @@
-define(['./engine', './maps/defaultMap.js', './scoresDb'], 
-    function (Engine, defaultMap, ScoresDb) {
+define(['./engine', './maps/defaultMap.js', './scoresDb', './serverCom'], 
+    function (Engine, defaultMap, ScoresDb, ServerCom) {
     'use strict';
     var engine = null;
     
@@ -20,6 +20,25 @@ define(['./engine', './maps/defaultMap.js', './scoresDb'],
                
             $.afui.loadContent("#home");
         });
+        $(document).on("click", "#btn-facebook-connect", function(){
+            
+            //ServerCom.userDataRequest();
+            
+            var inAppBrowser = cordova.InAppBrowser.open('http://localhost:5000/auth/facebook', '_blank', 'location=yes');
+            
+            inAppBrowser.addEventListener("loadstart", function (event) {
+                console.log("LOADSTART URL:", event.url);
+            });
+            inAppBrowser.addEventListener("loadstop", function (event) {
+                setTimeout(function(){
+                    var successUrl = 'http://localhost:5000/#_=_';
+                    if(event.url == successUrl){
+                        inAppBrowser.close();
+                    }
+                },5000);
+            });
+        });
+        
         $(document).on("click", "#btn-scores", onLoadScores);
      
         document.addEventListener("backbutton", onBackKeyDown,false);
